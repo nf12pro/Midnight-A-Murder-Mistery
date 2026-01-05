@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shadow Realm - A Murder Mystery</title>
+    <title>Midnight - A Murder Mystery</title>
     <style>
         body {
             font-family: 'Courier New', monospace;
@@ -32,9 +32,21 @@
             padding: 10px;
             margin: 5px;
             cursor: pointer;
+            opacity: 1;
+            transition: opacity 0.5s ease-in;
         }
         button:hover {
             background-color: #555;
+        }
+        #options {
+            min-height: 50px;
+        }
+        #options.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        #output {
+            min-height: 200px;
         }
         #accuseBtn {
             position: fixed;
@@ -58,6 +70,6 @@
     <div id="output"></div>
     <div id="options"></div>
     <div id="accuseContainer"></div>
-    <script src="IntroSequence.js"></script>
+    <script src="MainScript.js"></script>
 </body>
 </html>
