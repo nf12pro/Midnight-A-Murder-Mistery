@@ -20,6 +20,8 @@ let accuseContainer;
 let currentScene = 'intro';
 let welcomeDiv;
 let currentOptions = [];
+let typingTimeout;
+const TYPE_SPEED = 12;
 
 // Game state variables
 let kacper_cooked = false;
@@ -877,12 +879,40 @@ function log(text) {
 }
 
 function clearOutput() {
+    resetTyping();
     outputDiv.textContent = '';
+}
+
+function resetTyping() {
+    if (typingTimeout) {
+        clearTimeout(typingTimeout);
+        typingTimeout = null;
+    }
+}
+
+function typeText(text, onComplete) {
+    let index = 0;
+    const typeNext = () => {
+        outputDiv.textContent += text.charAt(index);
+        index += 1;
+        if (index < text.length) {
+            typingTimeout = setTimeout(typeNext, TYPE_SPEED);
+        } else {
+            typingTimeout = null;
+            if (onComplete) {
+                onComplete();
+            }
+        }
+    };
+    typeNext();
 }
 
 function displayScene() {
     const scene = scenes[currentScene];
+    resetTyping();
     clearOutput();
+    hideOptions();
+    let textToType = scene.text;
     if (currentScene === 'intro') {
         if (!welcomeDiv) {
             welcomeDiv = document.createElement('div');
@@ -890,8 +920,7 @@ function displayScene() {
             welcomeDiv.textContent = 'WELCOME TO MIDNIGHT';
             document.body.appendChild(welcomeDiv);
         }
-        const introText = '\n\nYour aunt was recently found murdered.\nYou are one of the best detectives, you have been handed the case.\n\nWho do you want to interrogate?\n\n';
-        log(introText);
+        textToType = '\n\nYour aunt was recently found murdered.\nYou are one of the best detectives, you have been handed the case.\n\nWho do you want to interrogate?\n\n';
         showAccuseButton();
     } else {
         if (welcomeDiv) {
@@ -899,7 +928,6 @@ function displayScene() {
             welcomeDiv = null;
         }
         hideAccuseButton();
-        log(scene.text);
     }
     let options = [...scene.options];
     if (currentScene === 'kacper' && !kacper_cooked) {
@@ -917,7 +945,10 @@ function displayScene() {
     if (currentScene === 'herby' && euan_salad_told) {
         options.splice(2, 0, { text: 'Ask about why he cared about the salad ingredients', nextScene: 'herby_salad_care' });
     }
-    displayOptions(options);
+    typeText(textToType, () => {
+        displayOptions(options);
+        showOptions();
+    });
 }
 
 function displayOptions(options) {
@@ -930,6 +961,21 @@ function displayOptions(options) {
             handleOptionSelect(option);
         };
         optionsDiv.appendChild(button);
+    });
+}
+
+function hideOptions() {
+    optionsDiv.classList.add('hidden');
+}
+
+function showOptions() {
+    requestAnimationFrame(() => {
+        optionsDiv.classList.remove('hidden');
+        const buttons = optionsDiv.querySelectorAll('button');
+        buttons.forEach((button, index) => {
+            button.style.animationDelay = `${index * 0.1}s`;
+            button.classList.add('fade-in');
+        });
     });
 }
 //endregion

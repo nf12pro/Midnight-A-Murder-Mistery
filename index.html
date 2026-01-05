@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Courier New', monospace;
-            background-color: #000;
+            background-color: #453B61;
             color: #fff;
             padding: 20px;
         }
@@ -26,20 +26,34 @@
             z-index: 10;
         }
         button {
-            background-color: #333;
+            background-color: #F24B4B;
             color: #fff;
             border: 1px solid #fff;
             padding: 10px;
             margin: 5px;
             cursor: pointer;
-            opacity: 1;
-            transition: opacity 0.5s ease-in;
+            opacity: 0;
+        }
+        button.fade-in {
+            animation: fadeIn 0.4s ease-in forwards;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         button:hover {
-            background-color: #555;
+            background-color: #D93D3D;
         }
         #options {
             min-height: 50px;
+            opacity: 1;
+            transition: opacity 0.5s ease-in;
         }
         #options.hidden {
             opacity: 0;
@@ -53,16 +67,16 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #800;
+            background-color: #F24B4B;
             color: #fff;
-            border: 2px solid #f00;
+            border: 2px solid #fff;
             padding: 15px 30px;
             font-size: 1.2em;
             cursor: pointer;
             z-index: 10;
         }
         #accuseBtn:hover {
-            background-color: #a00;
+            background-color: #D93D3D;
         }
     </style>
 </head>
