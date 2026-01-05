@@ -67,7 +67,8 @@ const scenes = {
             { text: 'Millicent', nextScene: 'millicent' },
             { text: 'Leo', nextScene: 'leo' },
             { text: 'Dev', nextScene: 'dev' },
-            { text: 'Ren Ran', nextScene: 'ren_ran' }
+            { text: 'Ren Ran', nextScene: 'ren_ran' },
+            { text: 'Rayane', nextScene: 'rayane' }
         ]
     //endregion
     },
@@ -287,6 +288,7 @@ const scenes = {
             { text: 'Leo', nextScene: 'gameover' },
             { text: 'Dev', nextScene: 'gameover' },
             { text: 'Ren Ran', nextScene: 'gameover' },
+            { text: 'Rayane', nextScene: 'gameover' },
             { text: 'Back to interrogation room', nextScene: 'intro' }
         ]
     },
@@ -859,6 +861,30 @@ const scenes = {
             { text: 'Back to Ren Ran', nextScene: 'ren_ran' },
             { text: 'Back to interrogation room', nextScene: 'intro' }
         ]
+    },
+    rayane: {
+        text: 'Rayane is a programmer. He\'s been frantically typing on his laptop and looks exhausted.\n\n',
+        options: [
+            { text: 'Ask what he\'s working on', nextScene: 'rayane_project' },
+            { text: 'Ask about his whereabouts', nextScene: 'rayane_whereabouts' },
+            { text: 'Back to interrogation room', nextScene: 'intro' }
+        ]
+    },
+    rayane_project: {
+        text: 'Rayane excitedly explains he\'s been programming a random text-based game revolving around a murder mystery. He finds it "hilariously ironic" given the current circumstances. The game apparently has suspects, clues, and even a typewriter effect for the text. He\'s been working on it non-stop.\n\n',
+        options: [
+            { text: 'Ask about his whereabouts', nextScene: 'rayane_whereabouts' },
+            { text: 'Back to Rayane', nextScene: 'rayane' },
+            { text: 'Back to interrogation room', nextScene: 'intro' }
+        ]
+    },
+    rayane_whereabouts: {
+        text: 'Rayane says he was in his room coding the entire day. He has Git commits timestamped throughout the day as proof. He mentions something about "debugging button animations" and "fixing the accusation logic."\n\n',
+        options: [
+            { text: 'Ask what he\'s working on', nextScene: 'rayane_project' },
+            { text: 'Back to Rayane', nextScene: 'rayane' },
+            { text: 'Back to interrogation room', nextScene: 'intro' }
+        ]
     }
     //endregion
 };
@@ -917,7 +943,10 @@ function displayScene() {
         if (!welcomeDiv) {
             welcomeDiv = document.createElement('div');
             welcomeDiv.className = 'welcome';
-            welcomeDiv.textContent = 'WELCOME TO MIDNIGHT';
+            const welcomeImg = document.createElement('img');
+            welcomeImg.src = 'assets/midnight_welcome_image.png';
+            welcomeImg.alt = 'WELCOME TO MIDNIGHT';
+            welcomeDiv.appendChild(welcomeImg);
             document.body.appendChild(welcomeDiv);
         }
         textToType = '\n\nYour aunt was recently found murdered.\nYou are one of the best detectives, you have been handed the case.\n\nWho do you want to interrogate?\n\n';
