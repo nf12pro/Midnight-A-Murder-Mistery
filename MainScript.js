@@ -322,7 +322,7 @@ const scenes = {
         ]
     },
     marcus_mail: {
-        text: 'Marcus insists he delivered mail at exactly 3:47 PM every Tuesday for the past 3 years. This seems VERY specific.\n\n',
+        text: 'Marcus insists he delivered mail at exactly 3:47 PM every Tuesday for the past 3 years. This seems VERY specific. He also mentions it was raining heavily on the day of the murder, which made his rounds difficult.\n\n',
         options: [
             { text: 'Back to Marcus', nextScene: 'marcus' },
             { text: 'Back to interrogation room', nextScene: 'intro' }
@@ -373,7 +373,7 @@ const scenes = {
         ]
     },
     derek_tan: {
-        text: 'Derek explains his tan comes from working outdoors. He specifically mentions it was sunny on alternating Thursdays.\n\n',
+        text: 'Derek explains his tan comes from working outdoors. He specifically mentions it was sunny and cloudless on the day of the murder - perfect pool cleaning weather. He remembers because he saw the mailman arrive right on schedule.\n\n',
         options: [
             { text: 'Back to Derek', nextScene: 'derek' },
             { text: 'Back to interrogation room', nextScene: 'intro' }
@@ -402,7 +402,7 @@ const scenes = {
         ]
     },
     patricia_black: {
-        text: 'Patricia always wears black on Mondays through Fridays. Today is Wednesday. The significance is unclear but she seems to think it matters. She mentions she once saw the gardener, Tongyu, wearing an unusual shade of green. Patricia thought it clashed with the garden aesthetic.\n\n',
+        text: 'Patricia always wears black on Mondays through Fridays. Today is Wednesday. The significance is unclear but she seems to think it matters. She mentions she was at the house tuning the piano from 2 PM to 6 PM on the day of the murder. She never left, not even for a moment. She also saw Tongyu the gardener wearing an unusual shade of green that clashed with the garden aesthetic.\n\n',
         options: [
             { text: 'Back to Patricia', nextScene: 'patricia' },
             { text: 'Back to interrogation room', nextScene: 'intro' }
@@ -425,7 +425,7 @@ const scenes = {
         ]
     },
     simon_calc: {
-        text: 'The calculator is a TI-84 Plus from 2009. Simon mentions this model was discontinued in 2013, which he finds suspicious. He also mentions he saw Felix the watchmaker intensely studying Simon\'s calculator calculations. Felix seemed very interested in the numbers.\n\n',
+        text: 'The calculator is a TI-84 Plus from 2009. Simon mentions this model was discontinued in 2013, which he finds suspicious. He also saw Felix the watchmaker intensely studying Simon\'s calculations. Felix seemed very interested in the numbers. Simon distinctly remembers this happened at 2:15 PM because he checks his watch obsessively.\n\n',
         options: [
             { text: 'Back to Simon', nextScene: 'simon' },
             { text: 'Back to interrogation room', nextScene: 'intro' }
@@ -446,7 +446,7 @@ const scenes = {
         ]
     },
     rachel_dogs: {
-        text: 'Rachel explains your aunt never had dogs, but she was hired anyway "just in case." This has been her job for 5 years. She mentions she often saw Herby the chauffeur driving around frantically. She also noticed the mailman Marcus was always exactly on time, which she found "creepy."\n\n',
+        text: 'Rachel explains your aunt never had dogs, but she was hired anyway "just in case." This has been her job for 5 years. She mentions she was walking by the house around 2:00 PM and saw the pool cleaner leaving early, which she found odd. She didn\'t see the mailman at all that day, which was unusual since he\'s always so punctual.\n\n',
         options: [
             { text: 'Back to interrogation room', nextScene: 'intro' }
         ]
@@ -467,7 +467,7 @@ const scenes = {
         ]
     },
     vincent_smell: {
-        text: 'Vincent explains he stores all antiques with mothballs. He uses exactly 67 mothballs per item. This precision seems important.\n\n',
+        text: 'Vincent explains he stores all antiques with mothballs. He uses exactly 67 mothballs per item. This precision seems important. He insists he arrived at your aunt\'s house at 9:30 AM on the day of the murder to appraise a new item. He was there until noon, then left directly. He didn\'t see the newspaper delivery person at all.\n\n',
         options: [
             { text: 'Back to Vincent', nextScene: 'vincent' },
             { text: 'Back to interrogation room', nextScene: 'intro' }
@@ -497,7 +497,7 @@ const scenes = {
         ]
     },
     gloria_hours: {
-        text: 'Gloria mentions the library closes at 6 PM on Thursdays but 7 PM on Fridays. Your aunt visited on a Thursday. Surely this means something! Gloria also notes that Euan the salesman once returned a book 2 minutes before closing. She found his punctuality "unnerving."\n\n',
+        text: 'Gloria mentions the library closes at 6 PM on Thursdays but 7 PM on Fridays. Your aunt visited on a Thursday. Surely this means something! Gloria also notes that Patricia the piano tuner returned a book that day at 5:45 PM. She seemed flustered and rushed, completely unlike her usual composed demeanor.\n\n',
         options: [
             { text: 'Back to Gloria', nextScene: 'gloria' },
             { text: 'Back to interrogation room', nextScene: 'intro' }
@@ -549,7 +549,7 @@ const scenes = {
         ]
     },
     felix_simon: {
-        text: 'Felix becomes very nervous. He mentions he saw Simon\'s calculations and realized they matched a time he saw Rachel walking past the house. Rachel, the dog walker with no dogs! The timing was EXACTLY 2 minutes off from his watch. Felix is convinced this is the key to everything.\n\n',
+        text: 'Felix becomes very nervous. He mentions he saw Simon\'s calculations and realized they matched a time he saw Rachel walking past the house. Rachel, the dog walker with no dogs! The timing was at 3:47 PM, he\'s absolutely certain. Felix is convinced this is the key to everything.\n\n',
         options: [
             { text: 'Back to Felix', nextScene: 'felix' },
             { text: 'Back to interrogation room', nextScene: 'intro' }
@@ -630,7 +630,7 @@ const scenes = {
         ]
     },
     yvonne_delivery: {
-        text: 'Yvonne delivered papers at 6:17 AM every day for 9 years. One day she was 3 minutes late. It was 2 years ago but she still feels guilty.\n\n',
+        text: 'Yvonne delivered papers at 6:17 AM every day for 9 years. One day she was 3 minutes late. It was 2 years ago but she still feels guilty. On the day of the murder, she delivered at exactly 6:17 AM and saw Vincent\'s car already parked outside. She remembers thinking it was odd for him to be there so early.\n\n',
         options: [
             { text: 'Back to Yvonne', nextScene: 'yvonne' },
             { text: 'Back to interrogation room', nextScene: 'intro' }
