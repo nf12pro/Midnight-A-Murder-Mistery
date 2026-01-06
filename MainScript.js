@@ -28,7 +28,6 @@ let kacper_cooked = false;
 let tongyu_salad_shared = false;
 let euan_salad_told = false;
 let marcus_package_received = false;
-let olivia_orchids_mentioned = false;
 let simon_calculator_seen = false;
 let felix_watched = false;
 let leo_coffee_known = false;
@@ -45,7 +44,6 @@ const scenes = {
         options: [ 
             { text: 'Marcus', nextScene: 'marcus' },
             { text: 'Tongyu', nextScene: 'tongyu' },
-            { text: 'Olivia', nextScene: 'olivia' },
             { text: 'Derek', nextScene: 'derek' },
             { text: 'Kacper', nextScene: 'kacper' },
             { text: 'Patricia', nextScene: 'patricia' },
@@ -72,7 +70,8 @@ const scenes = {
             { text: 'Dev', nextScene: 'dev' },
             { text: 'Ren Ran', nextScene: 'ren_ran' },
             { text: 'Rayane', nextScene: 'rayane' },
-            { text: 'Alex', nextScene: 'alex' }
+            { text: 'Alex', nextScene: 'alex' },
+            { text: 'Reem', nextScene: 'reem' }
         ]
     //endregion
     },
@@ -265,7 +264,6 @@ const scenes = {
         options: [
             { text: 'Marcus', nextScene: 'accuse_marcus' },
             { text: 'Tongyu', nextScene: 'accuse_tongyu' },
-            { text: 'Olivia', nextScene: 'accuse_olivia' },
             { text: 'Derek', nextScene: 'accuse_derek' },
             { text: 'Kacper', nextScene: 'accuse_kacper' },
             { text: 'Patricia', nextScene: 'accuse_patricia' },
@@ -293,6 +291,7 @@ const scenes = {
             { text: 'Ren Ran', nextScene: 'accuse_renran' },
             { text: 'Rayane', nextScene: 'accuse_rayane' },
             { text: 'Alex', nextScene: 'accuse_alex' },
+            { text: 'Reem', nextScene: 'accuse_reem' },
             { text: 'Back to interrogation room', nextScene: 'intro' }
         ]
     },
@@ -303,10 +302,6 @@ const scenes = {
     },
     accuse_tongyu: {
         text: '<span class="congratulations">Case Closed?</span>\n\nYou accuse Tongyu the gardener.\n\nTongyu shakes his head. "No, no, no! The plants—they would tell me if I did such a thing! The garden knows I am innocent. I loved your aunt\'s garden like my own. Why would I destroy what I cherish most?" He points to the roses outside, claiming they bloom only for the innocent.\n\nThe case is closed... but did you accuse the right person?',
-        options: [{ text: 'Restart', nextScene: 'restart' }]
-    },
-    accuse_olivia: {
-        text: '<span class="congratulations">Case Closed?</span>\n\nYou accuse Olivia the florist.\n\nOlivia gasps. "The purple orchids? Those were a GIFT! Your aunt requested them specifically—I have the order form! Just because she hated purple doesn\'t mean I knew that. I\'m a florist, not a mind reader!" She insists she only delivers flowers and would never harm a customer.\n\nThe case is closed... but did you accuse the right person?',
         options: [{ text: 'Restart', nextScene: 'restart' }]
     },
     accuse_derek: {
@@ -417,6 +412,10 @@ const scenes = {
         text: '<span class="congratulations">Case Closed?</span>\n\nYou accuse Alex the accountant.\n\nAlex remains calm. "Financial irregularities? Our firm undergoes regular audits—everything is transparent. Your aunt consulted me for financial advice; she trusted me. I was at the library, you can check with the librarian. My calm demeanor is just my personality, not evidence of guilt." He offers to provide his firm\'s audit reports.\n\nThe case is closed... but did you accuse the right person?',
         options: [{ text: 'Restart', nextScene: 'restart' }]
     },
+    accuse_reem: {
+        text: '<span class="congratulations">Case Closed?</span>\n\nYou accuse Reem the courier.\n\nReem talks at lightning speed. "What-no-no-no-I-was-delivering-packages-all-day-34-stops-I-saw-Herby-and-Tongyu-and-Marcus-I-have-receipts-signatures-timestamps-GPS-tracking-on-my-van-check-my-phone-check-my-logs-I-can-prove-where-I-was-every-single-minute-I-don\'t-even-KNOW-your-aunt-I-just-deliver-packages!" She barely pauses to breathe, insisting on her innocence.\n\nThe case is closed... but did you accuse the right person?',
+        options: [{ text: 'Restart', nextScene: 'restart' }]
+    },
     //endregion
     //region Extra Suspects
     marcus: {
@@ -445,19 +444,6 @@ const scenes = {
         text: 'Marcus says he saw Olivia and the florist having a "heated conversation" the day before the murder. He couldn\'t hear what they said, but they both seemed upset. This must mean something!\n\n',
         options: [
             { text: 'Back to Marcus', nextScene: 'marcus' },
-            { text: 'Back to interrogation room', nextScene: 'intro' }
-        ]
-    },
-    olivia: {
-        text: 'Olivia is the florist who delivered flowers weekly.\n\n',
-        options: [
-            { text: 'Ask about the last flower delivery', nextScene: 'olivia_flowers' },
-            { text: 'Back to interrogation room', nextScene: 'intro' }
-        ]
-    },
-    olivia_flowers: {
-        text: 'Olivia says she delivered purple orchids on the day of the murder. Your aunt HATED purple. This must mean something!\n\n',
-        options: [
             { text: 'Back to interrogation room', nextScene: 'intro' }
         ]
     },
@@ -1024,6 +1010,30 @@ const scenes = {
             { text: 'Back to Alex', nextScene: 'alex' },
             { text: 'Back to interrogation room', nextScene: 'intro' }
         ]
+    },
+    reem: {
+        text: 'Reem is a courier who never stops moving. She\'s tapping her foot rapidly and checking her watch every few seconds. Before you can even finish your first question she\'s already answered three!\n\n',
+        options: [
+            { text: 'Ask about her deliveries', nextScene: 'reem_deliveries' },
+            { text: 'Ask about her schedule', nextScene: 'reem_schedule' },
+            { text: 'Back to interrogation room', nextScene: 'intro' }
+        ]
+    },
+    reem_deliveries: {
+        text: 'Reem talks at lightning speed: "Yes-yes-I-deliver-packages-all-over-town-34-stops-today-record-is-67-your-aunt-got-3-packages-this-week-signed-at-9:47-AM-exactly-always-on-time-never-late-Herby-was-there-too-racing-around-for-salad-stuff-we-almost-crashed-both-laughed-kept-going!" She barely takes a breath.\n\n',
+        options: [
+            { text: 'Ask about her schedule', nextScene: 'reem_schedule' },
+            { text: 'Back to Reem', nextScene: 'reem' },
+            { text: 'Back to interrogation room', nextScene: 'intro' }
+        ]
+    },
+    reem_schedule: {
+        text: 'Reem rattles off: "Day-of-murder-started-5-AM-warehouse-sorted-packages-left-5:47-first-stop-6:02-coffee-shop-second-stop-your-aunt-9:47-saw-Marcus-leaving-waved-didn\'t-stop-to-chat-no-time-time-is-money-28-more-stops-finished-7:13-PM-home-8-PM-asleep-8:30!" You\'re exhausted just listening to her.\n\n',
+        options: [
+            { text: 'Ask about her deliveries', nextScene: 'reem_deliveries' },
+            { text: 'Back to Reem', nextScene: 'reem' },
+            { text: 'Back to interrogation room', nextScene: 'intro' }
+        ]
     }
     //endregion
 };
@@ -1052,6 +1062,9 @@ function init() {
     
     // Initialize notepad functionality
     setupNotepad();
+    
+    // Initialize notepad formatting tools
+    setupNotepadTools();
     
     // Initialize settings functionality
     setupSettings();
@@ -1327,7 +1340,6 @@ function restartGame() {
     tongyu_salad_shared = false;
     euan_salad_told = false;
     marcus_package_received = false;
-    olivia_orchids_mentioned = false;
     simon_calculator_seen = false;
     felix_watched = false;
     leo_coffee_known = false;
@@ -1405,10 +1417,10 @@ function setupNotepad() {
     const notepadClose = document.getElementById('notepadClose');
     const notepadText = document.getElementById('notepadText');
     
-    // Load saved notes from localStorage
+    // Load saved notes from localStorage (now uses innerHTML for rich text)
     const savedNotes = localStorage.getItem('detectiveNotes');
     if (savedNotes) {
-        notepadText.value = savedNotes;
+        notepadText.innerHTML = savedNotes;
     }
     
     // Open notepad
@@ -1429,15 +1441,18 @@ function setupNotepad() {
         }
     });
     
-    // Save notes automatically as user types
+    // Save notes automatically as user types (now uses innerHTML for rich text)
     notepadText.addEventListener('input', () => {
-        localStorage.setItem('detectiveNotes', notepadText.value);
+        localStorage.setItem('detectiveNotes', notepadText.innerHTML);
     });
     
     // Prevent keyboard shortcuts from triggering game controls when typing
     notepadText.addEventListener('keydown', (event) => {
         event.stopPropagation();
     });
+    
+    // Setup notepad formatting tools
+    setupNotepadTools();
 }
 //endregion
 
@@ -1579,7 +1594,6 @@ function resetGame() {
     tongyu_salad_shared = false;
     euan_salad_told = false;
     marcus_package_received = false;
-    olivia_orchids_mentioned = false;
     simon_calculator_seen = false;
     felix_watched = false;
     leo_coffee_known = false;
@@ -2017,10 +2031,10 @@ function updateProgressBar() {
     
     // Count unique character scenes visited (excluding intro, accuse, restart, etc.)
     const characterScenes = new Set([
-        'marcus', 'tongyu', 'olivia', 'derek', 'kacper', 'patricia', 'simon', 'jane',
+        'marcus', 'tongyu', 'derek', 'kacper', 'patricia', 'simon', 'jane',
         'rachel', 'vincent', 'herby', 'gloria', 'boris', 'natasha', 'felix', 'euan',
         'bethany', 'leonard', 'yvonne', 'malcolm', 'sophia', 'gregory', 'heather',
-        'theodore', 'millicent', 'leo', 'dev', 'ren_ran', 'rayane', 'alex'
+        'theodore', 'millicent', 'leo', 'dev', 'ren_ran', 'rayane', 'alex', 'reem'
     ]);
     
     const questioned = Array.from(visitedScenes).filter(scene => characterScenes.has(scene));
@@ -2068,6 +2082,78 @@ function applyFontSize(size) {
     buttons.forEach(button => {
         button.style.fontSize = size + 'px';
     });
+}
+
+// Notepad formatting functions using execCommand for rich text
+function applyBold() {
+    const selection = window.getSelection();
+    if (selection.rangeCount === 0 || selection.isCollapsed) {
+        alert('Please select some text first!');
+        return;
+    }
+    
+    document.execCommand('bold', false, null);
+    saveNotepadContent();
+}
+
+function applyHighlight() {
+    const selection = window.getSelection();
+    if (selection.rangeCount === 0 || selection.isCollapsed) {
+        alert('Please select some text first!');
+        return;
+    }
+    
+    // Check if already highlighted and toggle off
+    const range = selection.getRangeAt(0);
+    const parentSpan = range.commonAncestorContainer.parentElement;
+    
+    if (parentSpan && parentSpan.classList && parentSpan.classList.contains('highlight')) {
+        // Remove highlight
+        const text = parentSpan.textContent;
+        const textNode = document.createTextNode(text);
+        parentSpan.parentNode.replaceChild(textNode, parentSpan);
+    } else {
+        // Apply highlight using a span with class
+        const span = document.createElement('span');
+        span.className = 'highlight';
+        range.surroundContents(span);
+    }
+    
+    saveNotepadContent();
+}
+
+function saveNotepadContent() {
+    const notepad = document.getElementById('notepadText');
+    localStorage.setItem('detectiveNotes', notepad.innerHTML);
+}
+
+function setupNotepadTools() {
+    const boldBtn = document.getElementById('boldBtn');
+    const highlightBtn = document.getElementById('highlightBtn');
+    const notepad = document.getElementById('notepadText');
+    
+    boldBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        applyBold();
+        notepad.focus();
+    });
+    
+    highlightBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        applyHighlight();
+        notepad.focus();
+    });
+    
+    // Save content on input
+    notepad.addEventListener('input', () => {
+        saveNotepadContent();
+    });
+    
+    // Load saved content
+    const savedNotes = localStorage.getItem('detectiveNotes');
+    if (savedNotes) {
+        notepad.innerHTML = savedNotes;
+    }
 }
 //endregion
 

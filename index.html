@@ -153,6 +153,7 @@
             display: none;
             padding: 20px;
             padding-left: 50px;
+            overflow: hidden;
         }
         #notepadContainer.open {
             display: block;
@@ -202,13 +203,14 @@
             font-family: 'Moga', cursive;
             font-size: 24px;
             color: #333;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             text-align: center;
+            padding: 5px 0;
         }
         /* Notepad Textarea */
         #notepadText {
             width: 100%;
-            height: calc(100% - 60px);
+            height: calc(100% - 140px);
             background: repeating-linear-gradient(
                 to bottom,
                 transparent 0px,
@@ -227,10 +229,64 @@
             padding: 5px 10px 0 10px;
             resize: none;
             border-radius: 5px;
+            overflow-y: auto;
         }
-        #notepadText::placeholder {
+        #notepadText:empty:before {
+            content: 'Write your clues and observations here...';
             color: #999;
             font-style: italic;
+        }
+        #notepadText .highlight {
+            background-color: #FFFF00;
+            padding: 2px 0;
+        }
+        #notepadToolbar {
+            display: flex;
+            gap: 10px;
+            padding: 10px;
+            background: #f0f0f0;
+            border-bottom: 2px solid #ddd;
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            z-index: 201;
+            margin-bottom: 5px;
+        }
+        .notepad-tool-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #6e48aa, #9d50bb);
+            color: white;
+            border: 2px solid #5a3a8a;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            min-width: 80px;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+        .notepad-tool-btn:hover {
+            background: linear-gradient(135deg, #9d50bb, #6e48aa);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .notepad-tool-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        #boldBtn {
+            font-family: 'Times New Roman', serif;
+            font-weight: 900;
+            font-size: 18px;
+        }
+        #highlightBtn {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-color: #CC8400;
+        }
+        #highlightBtn:hover {
+            background: linear-gradient(135deg, #FFA500, #FFD700);
         }
         /* Settings Button */
         #settingsBtn {
@@ -480,7 +536,7 @@
             height: calc(100% - 110px);
             background: #fff;
             border-radius: 8px;
-            overflow-y: auto;
+            overflow-y: hidden;
             overflow-x: hidden;
             padding: 20px;
             color: #333;
@@ -694,7 +750,11 @@
     <div id="notepadContainer">
         <button id="notepadClose">×</button>
         <div id="notepadTitle">Detective's Notes</div>
-        <textarea id="notepadText" placeholder="Write your clues and observations here..."></textarea>
+        <div id="notepadToolbar">
+            <button class="notepad-tool-btn" id="boldBtn" title="Make selected text bold">B</button>
+            <button class="notepad-tool-btn" id="highlightBtn" title="Highlight selected text">H</button>
+        </div>
+        <div id="notepadText" contenteditable="true"></div>
     </div>
     
     <!-- Browser Container -->
