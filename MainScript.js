@@ -23,6 +23,9 @@ let typewriterSound;
 let celebrationSound;
 let clickSound;
 let isTyping = false;
+let currentTypingText = '';
+let currentTypingCallback = null;
+let buttonsAnimating = false;
 
 // Game state variables
 let kacper_cooked = false;
@@ -1092,6 +1095,27 @@ function init() {
     // Try to load saved game
     loadGame();
     
+    // Add click-to-skip typing functionality
+    document.addEventListener('click', (e) => {
+        // Only skip if clicking on non-interactive elements (not buttons, inputs, etc.)
+        const target = e.target;
+        const isInteractive = target.tagName === 'BUTTON' || 
+                             target.tagName === 'INPUT' || 
+                             target.tagName === 'SELECT' ||
+                             target.tagName === 'A' ||
+                             target.closest('button');
+        
+        // Skip typing only if currently typing and not clicking on interactive elements
+        if (isTyping && !isInteractive) {
+            skipTyping();
+        }
+        
+        // Skip button animation if buttons are animating
+        if (buttonsAnimating && !isInteractive) {
+            skipButtonAnimation();
+        }
+    });
+    
     displayScene();
 }
 
@@ -1142,6 +1166,8 @@ function stopTypewriterSound() {
 
 function typeText(text, onComplete) {
     let index = 0;
+    currentTypingText = text;
+    currentTypingCallback = onComplete;
     
     // Start looping sound when typing begins
     startTypewriterSound();
@@ -1165,12 +1191,45 @@ function typeText(text, onComplete) {
             // Stop sound when typing is complete
             stopTypewriterSound();
             typingTimeout = null;
+            currentTypingText = '';
+            currentTypingCallback = null;
             if (onComplete) {
                 onComplete();
             }
         }
     };
     typeNext();
+}
+
+function skipTyping() {
+    if (isTyping && currentTypingText) {
+        // Cancel ongoing typing
+        if (typingTimeout) {
+            clearTimeout(typingTimeout);
+            typingTimeout = null;
+        }
+        
+        // Stop sound
+        stopTypewriterSound();
+        
+        // Show full text immediately
+        outputDiv.innerHTML = '';
+        // Handle HTML tags properly
+        if (currentTypingText.includes('<span class="congratulations">')) {
+            outputDiv.innerHTML = currentTypingText;
+        } else {
+            outputDiv.textContent = currentTypingText;
+        }
+        
+        // Call the completion callback
+        const callback = currentTypingCallback;
+        currentTypingText = '';
+        currentTypingCallback = null;
+        
+        if (callback) {
+            callback();
+        }
+    }
 }
 
 function displayScene() {
@@ -1307,6 +1366,7 @@ function hideOptions() {
 }
 
 function showOptions() {
+    buttonsAnimating = true;
     requestAnimationFrame(() => {
         optionsDiv.classList.remove('hidden');
         const buttons = optionsDiv.querySelectorAll('button');
@@ -1314,7 +1374,26 @@ function showOptions() {
             button.style.animationDelay = `${index * 0.1}s`;
             button.classList.add('fade-in');
         });
+        
+        // Set timeout to mark animation as complete
+        const lastButtonDelay = (buttons.length - 1) * 0.1;
+        setTimeout(() => {
+            buttonsAnimating = false;
+        }, (lastButtonDelay + 0.4) * 1000); // 0.4s is animation duration
     });
+}
+
+function skipButtonAnimation() {
+    if (buttonsAnimating) {
+        const buttons = optionsDiv.querySelectorAll('button');
+        buttons.forEach((button) => {
+            button.style.animationDelay = '0s';
+            button.style.animation = 'none';
+            button.style.opacity = '1';
+            button.style.transform = 'translateY(0)';
+        });
+        buttonsAnimating = false;
+    }
 }
 //endregion
 
