@@ -42,7 +42,7 @@ const scenes = {
     //region Intro Scene
     intro: {
         text: '════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n                                                           WELCOME TO MIDNIGHT\n════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n\nYour aunt was recently found murdered.\nYou are one of the best detectives, you have been handed the case.\n\nWho do you want to interrogate?\n\n',
-        options: [
+        options: [ 
             { text: 'Marcus', nextScene: 'marcus' },
             { text: 'Tongyu', nextScene: 'tongyu' },
             { text: 'Olivia', nextScene: 'olivia' },
@@ -1352,7 +1352,7 @@ document.addEventListener('keydown', (event) => {
     }
     
     // M key for settings
-    if (key.toLowerCase() === 'm' && !event.target.matches('input, textarea')) {
+    if (key.toLowerCase() === 'm') {
         const settingsPanel = document.getElementById('settingsPanel');
         if (settingsPanel.classList.contains('open')) {
             settingsPanel.classList.remove('open');
