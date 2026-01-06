@@ -1056,6 +1056,9 @@ function init() {
     // Initialize settings functionality
     setupSettings();
     
+    // Initialize browser functionality
+    setupBrowser();
+    
     // Try to load saved game
     loadGame();
     
@@ -1523,6 +1526,373 @@ function resetGame() {
     // Restart game
     displayScene();
     console.log('Game reset!');
+}
+//endregion
+
+//region BROWSER ENGINE
+function setupBrowser() {
+    const browserBtn = document.getElementById('browserBtn');
+    const browserContainer = document.getElementById('browserContainer');
+    const browserClose = document.getElementById('browserClose');
+    const browserBack = document.getElementById('browserBack');
+    const browserForward = document.getElementById('browserForward');
+    const browserAddress = document.getElementById('browserAddress');
+    const browserGo = document.getElementById('browserGo');
+    const browserContent = document.getElementById('browserContent');
+    
+    let history = [];
+    let historyIndex = -1;
+    
+    const websites = {
+        'financial-records.com': `
+            <div class="web-page">
+                <h1>Estate Financial Records - Confidential</h1>
+                <p><strong>Account Holder:</strong> Your Aunt's Estate</p>
+                <p><strong>Last Updated:</strong> Day of Murder</p>
+                
+                <h2>Recent Transactions</h2>
+                <table>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Authorized By</th>
+                    </tr>
+                    <tr>
+                        <td>3 days ago</td>
+                        <td>Garden Supplies</td>
+                        <td>$450</td>
+                        <td>Tongyu (Gardener)</td>
+                    </tr>
+                    <tr>
+                        <td>3 days ago</td>
+                        <td>Pool Maintenance</td>
+                        <td>$320</td>
+                        <td>Derek (Pool Cleaner)</td>
+                    </tr>
+                    <tr class="suspicious">
+                        <td>2 days ago</td>
+                        <td>Wire Transfer - Offshore Account</td>
+                        <td>$15,000</td>
+                        <td>Euan (Accountant)</td>
+                    </tr>
+                    <tr>
+                        <td>1 day ago</td>
+                        <td>Flower Delivery</td>
+                        <td>$85</td>
+                        <td>Olivia (Florist)</td>
+                    </tr>
+                    <tr class="suspicious">
+                        <td>Day of murder</td>
+                        <td>Emergency Cash Withdrawal</td>
+                        <td>$5,000</td>
+                        <td>Simon (Accountant)</td>
+                    </tr>
+                    <tr class="suspicious">
+                        <td>Day of murder</td>
+                        <td>Wire Transfer - Unknown Recipient</td>
+                        <td>$8,500</td>
+                        <td>Euan (Accountant)</td>
+                    </tr>
+                </table>
+                
+                <h2>Suspicious Activity Notes</h2>
+                <p style="color: #d32f2f; font-weight: bold;">⚠️ Multiple unauthorized transactions detected</p>
+                <p>Independent audit scheduled for tomorrow has been cancelled due to circumstances.</p>
+                <p>Last login: Euan - 11:47 PM (Night before murder)</p>
+            </div>
+        `,
+        
+        'midnight-game.com': `
+            <div class="web-page">
+                <h1>MIDNIGHT - A Murder Mystery Game</h1>
+                <p style="font-style: italic; color: #666;">By Rayane - Amateur Game Developer</p>
+                
+                <div class="game-frame">
+                    <h3>🎮 Game Description</h3>
+                    <p>Welcome to MIDNIGHT, a text-based murder mystery where YOU are the detective!</p>
+                    <p>Your aunt has been murdered, and you must interrogate 30 suspects to find the killer.</p>
+                    <p><strong>Features:</strong></p>
+                    <ul>
+                        <li>30 unique characters with distinct personalities</li>
+                        <li>Typewriter text effect for immersive storytelling</li>
+                        <li>Contradicting testimonies to solve</li>
+                        <li>Multiple possible endings - YOU decide who's guilty!</li>
+                        <li>Detective notepad to track your clues</li>
+                    </ul>
+                </div>
+                
+                <h2>Developer Notes</h2>
+                <p><em>"This game is hilariously ironic given current circumstances. Started coding it weeks ago, never thought I'd actually be in a real murder investigation!"</em></p>
+                <p><em>"The systematic organization of the code would probably make Marcus the mailman proud. Everything is timestamped and documented."</em></p>
+                
+                <h2>Recent Commits</h2>
+                <table>
+                    <tr>
+                        <th>Time</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>Day of murder - 9:15 AM</td>
+                        <td>Added character: Alex (calm accountant)</td>
+                    </tr>
+                    <tr>
+                        <td>Day of murder - 11:30 AM</td>
+                        <td>Fixed button animations</td>
+                    </tr>
+                    <tr>
+                        <td>Day of murder - 2:45 PM</td>
+                        <td>Debugging accusation logic</td>
+                    </tr>
+                    <tr>
+                        <td>Day of murder - 4:00 PM</td>
+                        <td>Added celebration sound effect</td>
+                    </tr>
+                </table>
+                
+                <p style="margin-top: 20px;"><strong>Play Now:</strong> <a href="#">Actually, you're already playing it! Meta, right?</a></p>
+            </div>
+        `,
+        
+        'library-catalog.com': `
+            <div class="web-page">
+                <h1>📚 Public Library - Book Catalog</h1>
+                <p>Managed by Gloria (Head Librarian)</p>
+                
+                <h2>Overdue Books Report</h2>
+                <table>
+                    <tr>
+                        <th>Borrower</th>
+                        <th>Book Title</th>
+                        <th>Days Overdue</th>
+                    </tr>
+                    <tr class="suspicious">
+                        <td>Euan</td>
+                        <td>"Offshore Banking for Beginners"</td>
+                        <td>45 days</td>
+                    </tr>
+                    <tr class="suspicious">
+                        <td>Euan</td>
+                        <td>"How to Disappear Completely"</td>
+                        <td>32 days</td>
+                    </tr>
+                    <tr class="suspicious">
+                        <td>Euan</td>
+                        <td>"Financial Fraud Investigation Methods"</td>
+                        <td>28 days</td>
+                    </tr>
+                    <tr>
+                        <td>Vincent</td>
+                        <td>"Antique Appraisal Guide"</td>
+                        <td>12 days</td>
+                    </tr>
+                    <tr>
+                        <td>Malcolm</td>
+                        <td>"Advanced Chess Strategies"</td>
+                        <td>8 days</td>
+                    </tr>
+                </table>
+                
+                <h2>Recent Checkouts (Day of Murder)</h2>
+                <table>
+                    <tr>
+                        <th>Time</th>
+                        <th>Borrower</th>
+                        <th>Book Title</th>
+                    </tr>
+                    <tr>
+                        <td>10:30 AM</td>
+                        <td>Alex</td>
+                        <td>"Modern Accounting Practices"</td>
+                    </tr>
+                    <tr>
+                        <td>11:15 AM</td>
+                        <td>Jane</td>
+                        <td>"Coping with Loss"</td>
+                    </tr>
+                    <tr>
+                        <td>2:00 PM</td>
+                        <td>Alex</td>
+                        <td>Returned "Modern Accounting Practices"</td>
+                    </tr>
+                </table>
+                
+                <p style="font-style: italic; margin-top: 20px;">Note from Gloria: "Some people really need to return their books on time. It's just RUDE!"</p>
+            </div>
+        `,
+        
+        'weather-archive.com': `
+            <div class="web-page">
+                <h1>🌤️ Weather Archive</h1>
+                <p>Meteorological Data by Gregory</p>
+                
+                <h2>Weather Report - Day of Murder</h2>
+                <table>
+                    <tr>
+                        <th>Time</th>
+                        <th>Condition</th>
+                        <th>Temperature</th>
+                        <th>Precipitation</th>
+                    </tr>
+                    <tr>
+                        <td>9:00 AM</td>
+                        <td>☀️ Sunny & Clear</td>
+                        <td>75°F</td>
+                        <td>0%</td>
+                    </tr>
+                    <tr>
+                        <td>12:00 PM</td>
+                        <td>☀️ Sunny & Clear</td>
+                        <td>78°F</td>
+                        <td>0%</td>
+                    </tr>
+                    <tr>
+                        <td>3:00 PM</td>
+                        <td>☀️ Cloudless</td>
+                        <td>80°F</td>
+                        <td>0%</td>
+                    </tr>
+                    <tr>
+                        <td>6:00 PM</td>
+                        <td>🌅 Clear Evening</td>
+                        <td>72°F</td>
+                        <td>0%</td>
+                    </tr>
+                </table>
+                
+                <p style="margin-top: 20px; padding: 15px; background: #ffe6e6; border-left: 4px solid #d32f2f;">
+                    <strong>⚠️ DISCREPANCY ALERT:</strong><br>
+                    Marcus the mailman reported "heavy rain" during his 3:47 PM delivery.<br>
+                    Weather data shows ZERO precipitation all day.<br>
+                    <em>Someone is lying about the weather...</em>
+                </p>
+                
+                <h2>Barometric Pressure</h2>
+                <p>Steady at 30.12 inHg all day - Perfect conditions, no atmospheric disturbances</p>
+            </div>
+        `,
+        
+        'news-daily.com': `
+            <div class="web-page">
+                <h1>📰 The Daily Chronicle</h1>
+                <p style="font-style: italic;">Editor: Yvonne (Investigative Journalist)</p>
+                
+                <h2>BREAKING: Local Estate Owner Found Dead</h2>
+                <p><strong>Published:</strong> Day After Murder</p>
+                <p>A prominent estate owner was found dead yesterday under mysterious circumstances. Police have questioned multiple suspects but no arrests have been made.</p>
+                
+                <h2>Recent Articles by Yvonne</h2>
+                <ul>
+                    <li><a href="#">"Local Accountant Under Investigation for Embezzlement" - Published 3 days before murder (REMOVED)</a></li>
+                    <li><a href="#">"Garden Nursery Accused of Selling Rare Endangered Plants" - 1 week ago</a></li>
+                    <li><a href="#">"Pool Maintenance Scam Uncovered" - 2 weeks ago</a></li>
+                </ul>
+                
+                <p style="margin-top: 20px; padding: 10px; background: #fff3cd; border: 1px solid #ffc107;">
+                    <strong>Editor's Note:</strong> The article about accountant embezzlement was removed pending legal review. 
+                    The subject of the article has not been publicly named.
+                </p>
+                
+                <h2>Classified Ads</h2>
+                <p><em>"Urgent: Seeking one-way ticket to non-extradition country. Discretion required."</em> - Posted anonymously 2 days before murder</p>
+            </div>
+        `
+    };
+    
+    function loadPage(url) {
+        if (websites[url]) {
+            browserContent.innerHTML = websites[url];
+            browserAddress.value = url;
+            
+            // Add to history
+            if (historyIndex < history.length - 1) {
+                history = history.slice(0, historyIndex + 1);
+            }
+            history.push(url);
+            historyIndex++;
+            
+            updateNavButtons();
+        } else {
+            browserContent.innerHTML = `
+                <div class="web-page">
+                    <h1>404 - Page Not Found</h1>
+                    <p>The URL "${url}" could not be found.</p>
+                    <h2>Available Sites:</h2>
+                    <ul>
+                        <li><a href="#" onclick="loadBrowserPage('financial-records.com')">financial-records.com</a> - Estate financial data</li>
+                        <li><a href="#" onclick="loadBrowserPage('midnight-game.com')">midnight-game.com</a> - Rayane's murder mystery game</li>
+                        <li><a href="#" onclick="loadBrowserPage('library-catalog.com')">library-catalog.com</a> - Library checkout records</li>
+                        <li><a href="#" onclick="loadBrowserPage('weather-archive.com')">weather-archive.com</a> - Weather data archive</li>
+                        <li><a href="#" onclick="loadBrowserPage('news-daily.com')">news-daily.com</a> - Local news articles</li>
+                    </ul>
+                </div>
+            `;
+        }
+    }
+    
+    function updateNavButtons() {
+        browserBack.disabled = historyIndex <= 0;
+        browserForward.disabled = historyIndex >= history.length - 1;
+        browserBack.style.opacity = historyIndex <= 0 ? '0.5' : '1';
+        browserForward.style.opacity = historyIndex >= history.length - 1 ? '0.5' : '1';
+    }
+    
+    // Make loadPage accessible globally for inline links
+    window.loadBrowserPage = loadPage;
+    
+    // Open browser
+    browserBtn.addEventListener('click', () => {
+        browserContainer.style.display = 'block';
+        if (history.length === 0) {
+            loadPage('midnight-game.com');
+        }
+    });
+    
+    // Close browser
+    browserClose.addEventListener('click', () => {
+        browserContainer.style.display = 'none';
+    });
+    
+    // Back button
+    browserBack.addEventListener('click', () => {
+        if (historyIndex > 0) {
+            historyIndex--;
+            const url = history[historyIndex];
+            browserContent.innerHTML = websites[url];
+            browserAddress.value = url;
+            updateNavButtons();
+        }
+    });
+    
+    // Forward button
+    browserForward.addEventListener('click', () => {
+        if (historyIndex < history.length - 1) {
+            historyIndex++;
+            const url = history[historyIndex];
+            browserContent.innerHTML = websites[url];
+            browserAddress.value = url;
+            updateNavButtons();
+        }
+    });
+    
+    // Go button
+    browserGo.addEventListener('click', () => {
+        loadPage(browserAddress.value);
+    });
+    
+    // Enter key in address bar
+    browserAddress.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            loadPage(browserAddress.value);
+        }
+    });
+    
+    // ESC to close
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && browserContainer.style.display === 'block') {
+            browserContainer.style.display = 'none';
+        }
+    });
 }
 //endregion
 
