@@ -12,7 +12,6 @@
 //    - Event Handling (Line 850)
 //    - Game State (Line 900)
 
-
 //region 1. GLOBAL VARIABLES
 let outputDiv;
 let optionsDiv;
@@ -22,6 +21,8 @@ let welcomeDiv;
 let currentOptions = [];
 let typingTimeout;
 const TYPE_SPEED = 12;
+let typewriterSound;
+let isTyping = false;
 
 // Game state variables
 let kacper_cooked = false;
@@ -173,7 +174,6 @@ const scenes = {
             { text: 'Ask about the car', nextScene: 'herby_car' },
             { text: 'Ask about his whereabouts', nextScene: 'herby_whereabouts' },
             { text: 'Ask why he\'s not a healer', nextScene: 'herby_healer' },
-            { text: 'Ask about why he cared about the salad ingredients', nextScene: 'herby_salad_care' },
             { text: 'Back to interrogation room', nextScene: 'intro' }
         ]
     },
@@ -408,7 +408,7 @@ const scenes = {
         ]
     },
     simon_finances: {
-        text: 'Simon reveals your aunt spent $47.32 more on groceries last month than usual. He calls this a "red flag."\n\n',
+        text: 'Simon reveals your aunt spent $67.32 more on groceries last month than usual. He calls this a "red flag."\n\n',
         options: [
             { text: 'Back to Simon', nextScene: 'simon' },
             { text: 'Back to interrogation room', nextScene: 'intro' }
@@ -457,7 +457,7 @@ const scenes = {
         ]
     },
     vincent_smell: {
-        text: 'Vincent explains he stores all antiques with mothballs. He uses exactly 47 mothballs per item. This precision seems important.\n\n',
+        text: 'Vincent explains he stores all antiques with mothballs. He uses exactly 67 mothballs per item. This precision seems important.\n\n',
         options: [
             { text: 'Back to Vincent', nextScene: 'vincent' },
             { text: 'Back to interrogation room', nextScene: 'intro' }
@@ -575,7 +575,7 @@ const scenes = {
         ]
     },
     bethany_decorating: {
-        text: 'Bethany redecorated the guest bathroom 8 months ago. She chose curtains in "Eggshell White #47" instead of "Eggshell White #46." Critical difference.\n\n',
+        text: 'Bethany redecorated the guest bathroom 8 months ago. She chose curtains in "Eggshell White #67" instead of "Eggshell White #46." Critical difference.\n\n',
         options: [
             { text: 'Back to Bethany', nextScene: 'bethany' },
             { text: 'Back to interrogation room', nextScene: 'intro' }
@@ -634,7 +634,7 @@ const scenes = {
         ]
     },
     yvonne_headlines: {
-        text: 'Yvonne remembers every headline from the past month. She recites them all. None seem relevant but she insists they are.\n\n',
+        text: 'Yvonne remembers everyp headline from the past month. She recites them all. None seem relevant but she insists they are.\n\n',
         options: [
             { text: 'Back to Yvonne', nextScene: 'yvonne' },
             { text: 'Back to interrogation room', nextScene: 'intro' }
@@ -669,7 +669,7 @@ const scenes = {
         ]
     },
     sophia_handwriting: {
-        text: 'Sophia explains perfect handwriting takes 10,000 hours of practice. She\'s practiced for exactly 10,847 hours. She\'s been counting.\n\n',
+        text: 'Sophia explains perfect handwriting takes 10,000 hours of practice. She\'s practiced for exactly 10,867 hours. She\'s been counting.\n\n',
         options: [
             { text: 'Back to Sophia', nextScene: 'sophia' },
             { text: 'Back to interrogation room', nextScene: 'intro' }
@@ -685,7 +685,7 @@ const scenes = {
         ]
     },
     gregory_weather: {
-        text: 'Gregory states it was 68°F on the day of the murder. The humidity was 47%. Wind speed: 3 mph northeast. He insists these numbers matter.\n\n',
+        text: 'Gregory states it was 68°F on the day of the murder. The humidity was 67%. Wind speed: 3 mph northeast. He insists these numbers matter.\n\n',
         options: [
             { text: 'Back to Gregory', nextScene: 'gregory' },
             { text: 'Back to interrogation room', nextScene: 'intro' }
@@ -721,7 +721,7 @@ const scenes = {
         ]
     },
     heather_lunging: {
-        text: 'Heather explains she must do 500 lunges daily. She\'s at 347. She cannot stop. This is clearly the most important information she has.\n\n',
+        text: 'Heather explains she must do 500 lunges daily. She\'s at 367. She cannot stop. This is clearly the most important information she has.\n\n',
         options: [
             { text: 'Back to Heather', nextScene: 'heather' },
             { text: 'Back to interrogation room', nextScene: 'intro' }
@@ -744,7 +744,7 @@ const scenes = {
         ]
     },
     theodore_keys: {
-        text: 'Theodore has 847 keys on his keychain. He knows what each one opens. He offers to tell you about all of them.\n\n',
+        text: 'Theodore has 867 keys on his keychain. He knows what each one opens. He offers to tell you about all of them.\n\n',
         options: [
             { text: 'Back to Theodore', nextScene: 'theodore' },
             { text: 'Back to interrogation room', nextScene: 'intro' }
@@ -819,7 +819,7 @@ const scenes = {
         ]
     },
     dev_whereabouts: {
-        text: 'Dev was visiting every house on the block on the day of the murder, distributing unsolicited Christmas caroling. He visited 47 houses. He remembers the exact order and offers to recite them all. HO HO HO!\n\n',
+        text: 'Dev was visiting every house on the block on the day of the murder, distributing unsolicited Christmas caroling. He visited 67 houses. He remembers the exact order and offers to recite them all. HO HO HO!\n\n',
         options: [
             { text: 'Back to Dev', nextScene: 'dev' },
             { text: 'Back to interrogation room', nextScene: 'intro' }
@@ -856,7 +856,7 @@ const scenes = {
         ]
     },
     ren_ran_morale: {
-        text: 'Ren Ran is obsessed with team morale. They conduct weekly surveys with 47 questions each. The results are displayed on a 15-foot graph in their office. They discuss their methodology exhaustively.\n\n',
+        text: 'Ren Ran is obsessed with team morale. They conduct weekly surveys with 67 questions each. The results are displayed on a 15-foot graph in their office. They discuss their methodology exhaustively.\n\n',
         options: [
             { text: 'Back to Ren Ran', nextScene: 'ren_ran' },
             { text: 'Back to interrogation room', nextScene: 'intro' }
@@ -897,6 +897,13 @@ function init() {
     outputDiv = document.getElementById('output');
     optionsDiv = document.getElementById('options');
     accuseContainer = document.getElementById('accuseContainer');
+    
+    // Initialize typewriter sound (will loop while typing)
+    typewriterSound = new Audio('assets/typewriter_sfx.mp3');
+    typewriterSound.volume = 0.3;
+    typewriterSound.loop = true;
+    typewriterSound.preload = 'auto';
+    
     displayScene();
 }
 
@@ -914,16 +921,42 @@ function resetTyping() {
         clearTimeout(typingTimeout);
         typingTimeout = null;
     }
+    // Stop sound if typing is interrupted
+    stopTypewriterSound();
+}
+
+function startTypewriterSound() {
+    if (typewriterSound && !isTyping) {
+        isTyping = true;
+        typewriterSound.currentTime = 0;
+        typewriterSound.play().catch(() => {});
+    }
+}
+
+function stopTypewriterSound() {
+    if (typewriterSound && isTyping) {
+        isTyping = false;
+        typewriterSound.pause();
+        typewriterSound.currentTime = 0;
+    }
 }
 
 function typeText(text, onComplete) {
     let index = 0;
+    
+    // Start looping sound when typing begins
+    startTypewriterSound();
+    
     const typeNext = () => {
-        outputDiv.textContent += text.charAt(index);
+        const char = text.charAt(index);
+        outputDiv.textContent += char;
         index += 1;
+        
         if (index < text.length) {
             typingTimeout = setTimeout(typeNext, TYPE_SPEED);
         } else {
+            // Stop sound when typing is complete
+            stopTypewriterSound();
             typingTimeout = null;
             if (onComplete) {
                 onComplete();
