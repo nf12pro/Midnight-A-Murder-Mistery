@@ -22,6 +22,7 @@ let currentOptions = [];
 let typingTimeout;
 const TYPE_SPEED = 12;
 let typewriterSound;
+let celebrationSound;
 let isTyping = false;
 
 // Game state variables
@@ -296,7 +297,7 @@ const scenes = {
         ]
     },
     win: {
-        text: 'Congratulations! You correctly identified Euan as the murderer.\n\nEuan confesses that he killed your aunt, because, she discovered he was embezzling money from the household accounts. He tried to frame the new cook, Kacper, and Herby, but your detective skills uncovered the truth.\n\nCase closed!',
+        text: '<span class="congratulations">Congratulations!</span>\n\nYou correctly identified Euan as the murderer.\n\nEuan confesses that he killed your aunt, because, she discovered he was embezzling money from the household accounts. He tried to frame the new cook, Kacper, and Herby, but your detective skills uncovered the truth.\n\nCHARACTER REACTIONS:\n\nKacper: "I KNEW it wasn\'t me! Though I still think my salad was perfect despite the rush."\n\nHerby: "Thank goodness! I was so worried you\'d think I was involved because of the salad ingredient rush. My driving record is clean!"\n\nMarcus: "I delivered that package at exactly 3:47 PM as always. Punctuality saved me from suspicion!"\n\nTongyu: "The garden knew something was wrong that day. Plants can sense evil, you know."\n\nPatricia: "I should have known. The piano was 2 Hz off because of the negative energy in the house."\n\nRachel: "Even without dogs to walk, I knew something was suspicious about Euan\'s timing!"\n\nVincent: "My antiques are sensitive to murderous intent. I should have warned your aunt."\n\nGloria: "Euan had 3 overdue library books! That should have been the first clue to his criminal nature."\n\nBoris: "Ice sculptures melt, but justice freezes the guilty in place. Poetic."\n\nNatasha: "Euan never came to yoga class. A relaxed person would never commit murder."\n\nDerek: "The pool chemicals were off that day. Murder disrupts the pH balance of the universe!"\n\nSimon: "The financial discrepancies were there all along! The numbers never lie."\n\nJane: "I can\'t believe my friend was killed by that awful man. Justice has been served."\n\nFelix: "I checked my watch at the exact moment of the murder. 2 minutes slow, as always."\n\nOlivia: "Those purple orchids I delivered... they were meant to be a warning. Flowers know."\n\nBethany: "Murder is the most non-neutral color of all. Definitely not beige."\n\nLeonard: "I should polish my switch 401 times today to celebrate justice. One extra for luck."\n\nYvonne: "I\'ll make sure this makes the headline: \'Salesman Sentenced!\' Tuesday ink is best for justice."\n\nMalcolm: "Euan never learned proper chess strategy. Checkmate, you embezzling fool."\n\nSophia: "I\'ll write his confession in my most disappointing handwriting. He doesn\'t deserve Copperplate."\n\nGregory: "The barometric pressure dropped when he confessed. Even the weather condemns him!"\n\nHeather: "I\'m doing 500 justice lunges tonight! 368... 369... 370..."\n\nTheodore: "I\'ll change all the locks now. Key number 868 will be specifically for keeping Euan OUT."\n\nMillicent: "All 23 of my clocks struck the hour when justice was served. Perfectly synchronized."\n\nLeo: "Even with all the darkness of murder, I\'m just glad the truth came to light! Stay positive!"\n\nDev: "HO HO HO! Santa\'s list just got one name added to the VERY naughty section!"\n\nRen Ran: "Team morale just jumped from 91 to 98! Justice is EXCELLENT for workplace happiness!"\n\nRayane: "This would make an excellent plot twist for my game. Mind if I use this?"\n\nCASE CLOSED!',
         options: []
     },
     gameover: {
@@ -913,6 +914,10 @@ function init() {
     typewriterSound.loop = true;
     typewriterSound.preload = 'auto';
     
+    // Initialize celebration sound
+    celebrationSound = new Audio('assets/celebration_sfx.mp3');
+    celebrationSound.volume = 0.5;
+    
     displayScene();
 }
 
@@ -922,7 +927,7 @@ function log(text) {
 
 function clearOutput() {
     resetTyping();
-    outputDiv.textContent = '';
+    outputDiv.innerHTML = '';
 }
 
 function resetTyping() {
@@ -961,9 +966,17 @@ function typeText(text, onComplete) {
     startTypewriterSound();
     
     const typeNext = () => {
-        const char = text.charAt(index);
-        outputDiv.textContent += char;
-        index += 1;
+        // Check if we're at a span tag for congratulations
+        if (text.substring(index).startsWith('<span class="congratulations">')) {
+            const endTag = '</span>';
+            const endIndex = text.indexOf(endTag, index) + endTag.length;
+            outputDiv.innerHTML += text.substring(index, endIndex);
+            index = endIndex;
+        } else {
+            const char = text.charAt(index);
+            outputDiv.textContent += char;
+            index += 1;
+        }
         
         if (index < text.length) {
             typingTimeout = setTimeout(typeNext, TYPE_SPEED);
@@ -985,6 +998,15 @@ function displayScene() {
     clearOutput();
     hideOptions();
     let textToType = scene.text;
+    
+    // Play celebration sound on win
+    if (currentScene === 'win') {
+        if (celebrationSound) {
+            celebrationSound.currentTime = 0;
+            celebrationSound.play();
+        }
+    }
+    
     if (currentScene === 'intro') {
         if (!welcomeDiv) {
             welcomeDiv = document.createElement('div');
