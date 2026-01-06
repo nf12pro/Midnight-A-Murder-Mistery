@@ -1571,7 +1571,6 @@ function saveGame() {
         tongyu_salad_shared: tongyu_salad_shared,
         euan_salad_told: euan_salad_told,
         marcus_package_received: marcus_package_received,
-        olivia_orchids_mentioned: olivia_orchids_mentioned,
         simon_calculator_seen: simon_calculator_seen,
         felix_watched: felix_watched,
         leo_coffee_known: leo_coffee_known,
@@ -1592,11 +1591,14 @@ function loadGame() {
             tongyu_salad_shared = gameState.tongyu_salad_shared;
             euan_salad_told = gameState.euan_salad_told;
             marcus_package_received = gameState.marcus_package_received;
-            olivia_orchids_mentioned = gameState.olivia_orchids_mentioned;
             simon_calculator_seen = gameState.simon_calculator_seen;
             felix_watched = gameState.felix_watched;
             leo_coffee_known = gameState.leo_coffee_known;
-            visitedScenes = new Set(gameState.visitedScenes);
+            visitedScenes = new Set(gameState.visitedScenes || []);
+            
+            // Update progress bar after loading
+            updateProgressBar();
+            
             console.log('Game loaded!');
         } catch (e) {
             console.error('Failed to load game:', e);
@@ -1620,8 +1622,11 @@ function resetGame() {
     leo_coffee_known = false;
     visitedScenes = new Set();
     
-    // Clear notepad
-    document.getElementById('notepadText').value = '';
+    // Clear notepad (now a contenteditable div, not textarea)
+    document.getElementById('notepadText').innerHTML = '';
+    
+    // Reset progress bar
+    updateProgressBar();
     
     // Restart game
     displayScene();
@@ -1979,7 +1984,8 @@ function setupBrowser() {
     
     // Open browser
     browserBtn.addEventListener('click', () => {
-        browserContainer.style.display = 'block';
+        browserContainer.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
         if (history.length === 0) {
             loadHomepage();
         }
@@ -1988,6 +1994,7 @@ function setupBrowser() {
     // Close browser
     browserClose.addEventListener('click', () => {
         browserContainer.style.display = 'none';
+        document.body.style.overflow = 'auto';
     });
     
     // Back button
@@ -2034,8 +2041,9 @@ function setupBrowser() {
     
     // ESC to close
     document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && browserContainer.style.display === 'block') {
+        if (event.key === 'Escape' && browserContainer.style.display === 'flex') {
             browserContainer.style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
     });
 }
