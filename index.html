@@ -266,6 +266,9 @@
             min-width: 80px;
             opacity: 1 !important;
             visibility: visible !important;
+            pointer-events: auto;
+            user-select: none;
+            -webkit-user-select: none;
         }
         .notepad-tool-btn:hover {
             background: linear-gradient(135deg, #9d50bb, #6e48aa);
@@ -276,6 +279,11 @@
             transform: translateY(0);
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
+        .notepad-tool-btn.active {
+            background: linear-gradient(135deg, #9d50bb, #bb60ff);
+            border-color: #7a3aa0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+        }
         #boldBtn {
             font-family: 'Times New Roman', serif;
             font-weight: 900;
@@ -284,6 +292,10 @@
         #highlightBtn {
             background: linear-gradient(135deg, #FFD700, #FFA500);
             border-color: #CC8400;
+        }
+        #highlightBtn.active {
+            background: linear-gradient(135deg, #FFA500, #FFD700);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
         }
         #highlightBtn:hover {
             background: linear-gradient(135deg, #FFA500, #FFD700);

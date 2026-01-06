@@ -2084,42 +2084,73 @@ function applyFontSize(size) {
     });
 }
 
-// Notepad formatting functions using execCommand for rich text
-function applyBold() {
-    const selection = window.getSelection();
-    if (selection.rangeCount === 0 || selection.isCollapsed) {
-        alert('Please select some text first!');
-        return;
+// Notepad formatting toggle states
+let boldActive = false;
+let highlightActive = false;
+
+function toggleBold() {
+    const boldBtn = document.getElementById('boldBtn');
+    const notepad = document.getElementById('notepadText');
+    
+    // Execute bold command - this works on selection or toggles for future input
+    notepad.focus();
+    document.execCommand('bold', false, null);
+    
+    // Check if we're now in bold mode by querying the state
+    boldActive = document.queryCommandState('bold');
+    
+    if (boldActive) {
+        boldBtn.classList.add('active');
+    } else {
+        boldBtn.classList.remove('active');
     }
     
-    document.execCommand('bold', false, null);
     saveNotepadContent();
 }
 
-function applyHighlight() {
-    const selection = window.getSelection();
-    if (selection.rangeCount === 0 || selection.isCollapsed) {
-        alert('Please select some text first!');
-        return;
-    }
+function toggleHighlight() {
+    const highlightBtn = document.getElementById('highlightBtn');
+    const notepad = document.getElementById('notepadText');
     
-    // Check if already highlighted and toggle off
-    const range = selection.getRangeAt(0);
-    const parentSpan = range.commonAncestorContainer.parentElement;
+    notepad.focus();
     
-    if (parentSpan && parentSpan.classList && parentSpan.classList.contains('highlight')) {
-        // Remove highlight
-        const text = parentSpan.textContent;
-        const textNode = document.createTextNode(text);
-        parentSpan.parentNode.replaceChild(textNode, parentSpan);
+    // Toggle highlight state
+    highlightActive = !highlightActive;
+    
+    if (highlightActive) {
+        highlightBtn.classList.add('active');
+        document.execCommand('backColor', false, '#FFFF00');
     } else {
-        // Apply highlight using a span with class
-        const span = document.createElement('span');
-        span.className = 'highlight';
-        range.surroundContents(span);
+        highlightBtn.classList.remove('active');
+        // Remove highlight - use white/transparent
+        document.execCommand('backColor', false, '#FFF8DC');
     }
     
     saveNotepadContent();
+}
+
+// Update button states based on cursor position
+function updateToolbarState() {
+    const boldBtn = document.getElementById('boldBtn');
+    const highlightBtn = document.getElementById('highlightBtn');
+    
+    // Check bold state
+    boldActive = document.queryCommandState('bold');
+    if (boldActive) {
+        boldBtn.classList.add('active');
+    } else {
+        boldBtn.classList.remove('active');
+    }
+    
+    // Check highlight state by looking at backColor
+    const backColor = document.queryCommandValue('backColor');
+    if (backColor === 'rgb(255, 255, 0)' || backColor === '#FFFF00' || backColor === 'yellow') {
+        highlightActive = true;
+        highlightBtn.classList.add('active');
+    } else {
+        highlightActive = false;
+        highlightBtn.classList.remove('active');
+    }
 }
 
 function saveNotepadContent() {
@@ -2132,17 +2163,43 @@ function setupNotepadTools() {
     const highlightBtn = document.getElementById('highlightBtn');
     const notepad = document.getElementById('notepadText');
     
-    boldBtn.addEventListener('click', (e) => {
+    // Bold button click
+    boldBtn.onclick = function(e) {
         e.preventDefault();
-        applyBold();
         notepad.focus();
-    });
+        document.execCommand('bold', false, null);
+        
+        // Update button state
+        if (document.queryCommandState('bold')) {
+            boldBtn.classList.add('active');
+        } else {
+            boldBtn.classList.remove('active');
+        }
+        saveNotepadContent();
+    };
     
-    highlightBtn.addEventListener('click', (e) => {
+    // Highlight button click
+    highlightBtn.onclick = function(e) {
         e.preventDefault();
-        applyHighlight();
         notepad.focus();
-    });
+        
+        // Check current highlight state
+        const backColor = document.queryCommandValue('backColor');
+        const isHighlighted = backColor === 'rgb(255, 255, 0)' || backColor === '#FFFF00' || backColor === 'yellow';
+        
+        if (isHighlighted) {
+            document.execCommand('backColor', false, '#FFF8DC');
+            highlightBtn.classList.remove('active');
+        } else {
+            document.execCommand('backColor', false, '#FFFF00');
+            highlightBtn.classList.add('active');
+        }
+        saveNotepadContent();
+    };
+    
+    // Update toolbar state when selection changes or cursor moves
+    notepad.addEventListener('mouseup', updateToolbarState);
+    notepad.addEventListener('keyup', updateToolbarState);
     
     // Save content on input
     notepad.addEventListener('input', () => {
