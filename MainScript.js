@@ -1326,9 +1326,39 @@ function restartGame() {
 document.addEventListener('keydown', (event) => {
     const key = event.key;
     const num = parseInt(key);
+    
+    // Number keys for options
     if (num >= 1 && num <= currentOptions.length) {
         const option = currentOptions[num - 1];
         handleOptionSelect(option);
+    }
+    
+    // N key for notepad
+    if (key.toLowerCase() === 'n') {
+        const notepadContainer = document.getElementById('notepadContainer');
+        const notepadText = document.getElementById('notepadText');
+        
+        // Don't trigger if typing in browser address bar or other inputs (but allow in notepad itself)
+        if (event.target.matches('input') && event.target.id !== 'notepadText') {
+            return;
+        }
+        
+        if (notepadContainer.style.display === 'block') {
+            notepadContainer.style.display = 'none';
+        } else {
+            notepadContainer.style.display = 'block';
+            notepadText.focus();
+        }
+    }
+    
+    // M key for settings
+    if (key.toLowerCase() === 'm' && !event.target.matches('input, textarea')) {
+        const settingsPanel = document.getElementById('settingsPanel');
+        if (settingsPanel.classList.contains('open')) {
+            settingsPanel.classList.remove('open');
+        } else {
+            settingsPanel.classList.add('open');
+        }
     }
 });
 //endregion
@@ -1348,19 +1378,19 @@ function setupNotepad() {
     
     // Open notepad
     notepadBtn.addEventListener('click', () => {
-        notepadContainer.classList.add('open');
+        notepadContainer.style.display = 'block';
         notepadText.focus();
     });
     
     // Close notepad
     notepadClose.addEventListener('click', () => {
-        notepadContainer.classList.remove('open');
+        notepadContainer.style.display = 'none';
     });
     
     // Close on Escape key
     document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && Container.classList.contains('open')) {
-            notepadContainer.classList.remove('open');
+        if (event.key === 'Escape' && notepadContainer.style.display === 'block') {
+            notepadContainer.style.display = 'none';
         }
     });
     
