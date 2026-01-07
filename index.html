@@ -965,7 +965,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #453B61 0%, #2a2440 100%);
+            background: #F24B4B;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -973,21 +973,35 @@
             z-index: 10000;
             opacity: 1;
             transition: opacity 0.5s ease;
+            overflow: hidden;
         }
         #startMenu.hidden {
             opacity: 0;
             pointer-events: none;
         }
-        #startMenu img {
+        #startMenu .logo-img {
             max-width: 500px;
             width: 90%;
             margin-bottom: 60px;
+            z-index: 2;
+        }
+        #startMenu .castle-img {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 1170px;
+            width: 100%;
+            z-index: 1;
+            pointer-events: none;
+            filter: brightness(0) saturate(100%) invert(19%) sepia(12%) saturate(1500%) hue-rotate(220deg) brightness(95%) contrast(90%);
         }
         .start-menu-buttons {
             display: flex;
             flex-direction: column;
             gap: 20px;
             align-items: center;
+            z-index: 2;
         }
         .start-menu-btn {
             background-color: #F24B4B;
@@ -1018,11 +1032,12 @@
 <body>
     <!-- Start Menu -->
     <div id="startMenu">
-        <img src="assets/midnight_welcome_image.png" alt="MIDNIGHT">
+        <img class="logo-img" src="assets/midnight_welcome_image.png" alt="MIDNIGHT">
         <div class="start-menu-buttons">
             <button class="start-menu-btn" id="newGameBtn">NEW GAME</button>
             <button class="start-menu-btn load-btn" id="loadGameBtn">LOAD SAVE</button>
         </div>
+        <img class="castle-img" src="assets/castle.png" alt="">
     </div>
     
     <!-- Progress Bar -->
