@@ -2011,7 +2011,7 @@ function renderSaveSlots() {
                 const questioned = (save.visitedScenes || []).filter(scene => characterScenes.has(scene));
                 const progress = questioned.length;
                 const achievements = save.achievementCount || 0;
-                btn.innerHTML = `<div class="slot-name">💾 Slot ${i}</div><div class="slot-info">${date.toLocaleDateString()} ${date.toLocaleTimeString()}</div><div class="slot-info">👥 ${progress}/${CHARACTER_NAMES.length} characters • 🏆 ${achievements}/34 achievements</div>`;
+                btn.innerHTML = `<div class="slot-name"><img src="assets/emoji/notepad.png" style="width:16px;height:16px;vertical-align:middle;margin-right:5px;">Slot ${i}</div><div class="slot-info">${date.toLocaleDateString()} ${date.toLocaleTimeString()}</div><div class="slot-info">👥 ${progress}/${CHARACTER_NAMES.length} characters • <img src="assets/emoji/trophy.png" style="width:14px;height:14px;vertical-align:middle;margin-right:2px;">${achievements}/34 achievements</div>`;
                 
                 // Delete button
                 const deleteBtn = document.createElement('button');
@@ -2068,7 +2068,7 @@ function renderLoadSlots() {
             const questioned = (save.visitedScenes || []).filter(scene => characterScenes.has(scene));
             const progress = questioned.length;
             const achievements = save.achievementCount || 0;
-            autoBtn.innerHTML = `<div class="slot-name">⚡ Auto-Save</div><div class="slot-info">👥 ${progress}/${CHARACTER_NAMES.length} characters • 🏆 ${achievements}/34 achievements</div>`;
+            autoBtn.innerHTML = `<div class="slot-name">⚡ Auto-Save</div><div class="slot-info">👥 ${progress}/${CHARACTER_NAMES.length} characters • <img src="assets/emoji/trophy.png" style="width:14px;height:14px;vertical-align:middle;margin-right:2px;">${achievements}/34 achievements</div>`;
             autoBtn.addEventListener('click', function() {
                 playClickSound();
                 loadFromSlot(null);
@@ -2105,7 +2105,7 @@ function renderLoadSlots() {
                 const questioned = (save.visitedScenes || []).filter(scene => characterScenes.has(scene));
                 const progress = questioned.length;
                 const achievements = save.achievementCount || 0;
-                btn.innerHTML = `<div class="slot-name">💾 Slot ${i}</div><div class="slot-info">${date.toLocaleDateString()} ${date.toLocaleTimeString()}</div><div class="slot-info">👥 ${progress}/${CHARACTER_NAMES.length} characters • 🏆 ${achievements}/34 achievements</div>`;
+                btn.innerHTML = `<div class="slot-name"><img src="assets/emoji/notepad.png" style="width:16px;height:16px;vertical-align:middle;margin-right:5px;">Slot ${i}</div><div class="slot-info">${date.toLocaleDateString()} ${date.toLocaleTimeString()}</div><div class="slot-info">👥 ${progress}/${CHARACTER_NAMES.length} characters • <img src="assets/emoji/trophy.png" style="width:14px;height:14px;vertical-align:middle;margin-right:2px;">${achievements}/34 achievements</div>`;
                 const slotNum = i;
                 btn.addEventListener('click', function() {
                     playClickSound();
@@ -2347,28 +2347,28 @@ function renderAchievements() {
     const specialAchievements = [
         {
             id: 'openedNotepad',
-            icon: '📝',
+            icon: '<img src="assets/emoji/notepad.png" style="width:30px;height:30px;">',
             name: 'Note Taker',
             desc: 'Open the notepad',
             unlocked: achievements.openedNotepad
         },
         {
             id: 'openedBrowser',
-            icon: '🌐',
+            icon: '<img src="assets/emoji/internet.png" style="width:30px;height:30px;">',
             name: 'Cyber Sleuth',
             desc: 'Open the browser',
             unlocked: achievements.openedBrowser
         },
         {
             id: 'completedProgressBar',
-            icon: '⭐',
+            icon: '<img src="assets/emoji/star.png" style="width:30px;height:30px;">',
             name: 'Social Butterfly',
             desc: 'Talk to all 30 characters',
             unlocked: achievements.completedProgressBar
         },
         {
             id: 'accusedAllCharacters',
-            icon: '🎯',
+            icon: '<img src="assets/emoji/trophy.png" style="width:30px;height:30px;">',
             name: 'Trial and Error',
             desc: 'Accuse every single character at least once',
             unlocked: achievements.accusedAllCharacters
@@ -2428,26 +2428,26 @@ function unlockAchievement(type, characterName = null) {
     if (type === 'notepad' && !achievements.openedNotepad) {
         achievements.openedNotepad = true;
         unlocked = true;
-        message = '🏆 Achievement Unlocked: Note Taker!';
+        message = '<img src="assets/emoji/trophy.png" style="width:20px;height:20px;vertical-align:middle;margin-right:5px;">Achievement Unlocked: Note Taker!';
     } else if (type === 'browser' && !achievements.openedBrowser) {
         achievements.openedBrowser = true;
         unlocked = true;
-        message = '🏆 Achievement Unlocked: Cyber Sleuth!';
+        message = '<img src="assets/emoji/trophy.png" style="width:20px;height:20px;vertical-align:middle;margin-right:5px;">Achievement Unlocked: Cyber Sleuth!';
     } else if (type === 'progressBar' && !achievements.completedProgressBar) {
         achievements.completedProgressBar = true;
         unlocked = true;
-        message = '🏆 Achievement Unlocked: Social Butterfly!';
+        message = '<img src="assets/emoji/trophy.png" style="width:20px;height:20px;vertical-align:middle;margin-right:5px;">Achievement Unlocked: Social Butterfly!';
     } else if (type === 'accuseCharacter' && characterName) {
         if (!achievements.accused[characterName]) {
             achievements.accused[characterName] = true;
             unlocked = true;
-            message = `🏆 Achievement Unlocked: Accused ${characterName}!`;
+            message = `<img src="assets/emoji/trophy.png" style="width:20px;height:20px;vertical-align:middle;margin-right:5px;">Achievement Unlocked: Accused ${characterName}!`;
             
             // Check if all characters have been accused
             if (Object.keys(achievements.accused).length === 30 && !achievements.accusedAllCharacters) {
                 achievements.accusedAllCharacters = true;
                 setTimeout(() => {
-                    showAchievementNotification('🏆 Achievement Unlocked: Trial and Error!');
+                    showAchievementNotification('<img src="assets/emoji/trophy.png" style="width:20px;height:20px;vertical-align:middle;margin-right:5px;">Achievement Unlocked: Trial and Error!');
                 }, 2000);
             }
         }
@@ -2899,7 +2899,7 @@ function setupBrowser() {
         
         'security-footage.com': `
             <div class="web-page">
-                <h1>🎥 Security Camera Archive</h1>
+                <h1><img src="assets/emoji/camera.png" style="width:28px;height:28px;vertical-align:middle;margin-right:8px;">Security Camera Archive</h1>
                 <p style="font-style: italic;">Estate Security System - Theodore (Security Specialist)</p>
                 
                 <h2>Footage Timeline - Day of Murder</h2>
@@ -2966,7 +2966,7 @@ function setupBrowser() {
         
         'social-media.com': `
             <div class="web-page">
-                <h1>📱 SocialHub</h1>
+                <h1><img src="assets/emoji/social_media.png" style="width:28px;height:28px;vertical-align:middle;margin-right:8px;">SocialHub</h1>
                 <p>Recent Posts from Suspects</p>
                 
                 <h2>Timeline - Day of Murder</h2>
@@ -3130,12 +3130,12 @@ function setupBrowser() {
     function loadHomepage() {
         browserContent.innerHTML = `
             <div class="web-page">
-                <h1>🌐 Internet Explorer</h1>
+                <h1><img src="assets/emoji/internet.png" style="width:28px;height:28px;vertical-align:middle;margin-right:8px;">Internet Explorer</h1>
                 <p style="text-align: center; color: #666; margin-bottom: 30px;">Browse available websites to gather evidence</p>
                 
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
                     <div class="website-widget" onclick="loadBrowserPage('financial-records.com')" style="cursor: pointer; background: #667eea; padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                        <h3 style="margin: 0 0 10px 0; color: white;">💰 Financial Records</h3>
+                        <h3 style="margin: 0 0 10px 0; color: white;"><img src="assets/emoji/money_bag.png" style="width:20px;height:20px;vertical-align:middle;margin-right:5px;">Financial Records</h3>
                         <p style="margin: 0; font-size: 14px; opacity: 0.9;">Estate financial data and suspicious transactions</p>
                     </div>
                     
@@ -3160,12 +3160,12 @@ function setupBrowser() {
                     </div>
                     
                     <div class="website-widget" onclick="loadBrowserPage('security-footage.com')" style="cursor: pointer; background: #ff6b6b; padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                        <h3 style="margin: 0 0 10px 0; color: white;">🎥 Security Footage</h3>
+                        <h3 style="margin: 0 0 10px 0; color: white;"><img src="assets/emoji/camera.png" style="width:20px;height:20px;vertical-align:middle;margin-right:5px;">Security Footage</h3>
                         <p style="margin: 0; font-size: 14px; opacity: 0.9;">Camera archive and access logs</p>
                     </div>
                     
                     <div class="website-widget" onclick="loadBrowserPage('social-media.com')" style="cursor: pointer; background: #a8edea; padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                        <h3 style="margin: 0 0 10px 0; color: white;">📱 Social Media</h3>
+                        <h3 style="margin: 0 0 10px 0; color: white;"><img src="assets/emoji/social_media.png" style="width:20px;height:20px;vertical-align:middle;margin-right:5px;">Social Media</h3>
                         <p style="margin: 0; font-size: 14px; opacity: 0.9;">Posts and activity from suspects</p>
                     </div>
                     
