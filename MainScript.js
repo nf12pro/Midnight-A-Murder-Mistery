@@ -57,6 +57,7 @@ let visitedScenes = new Set();
 
 // Track dialogue repetitions
 let dialogueRepetitions = {};
+let currentCharacter = null;
 //endregion
 
 //region 2. SCENES DEFINITION
@@ -993,7 +994,7 @@ const scenes = {
         ]
     },
     leo_pictures: {
-        text: 'Leo deletes all the pictures posted in Slack and threatens to ban you.\n',
+        text: 'Leo deletes all the pictures posted in Slack and threatens to ban you. However, everyone has already downloaded them.\n',
         options: [
             { text: 'Ask about his work schedule', nextScene: 'leo_schedule' },
             { text: 'Ask about why he\'s so jolly', nextScene: 'leo_jolly' },
@@ -1351,6 +1352,17 @@ function displayScene() {
     resetTyping();
     clearOutput();
     hideOptions();
+    
+    // Detect character switch and reset dialogue repetitions
+    if (currentScene !== 'intro' && currentScene !== 'win' && !currentScene.startsWith('accuse_')) {
+        // Extract character name from scene (e.g., "kacper_alibi" -> "kacper")
+        const characterName = currentScene.split('_')[0];
+        if (currentCharacter && currentCharacter !== characterName) {
+            // Switched to a different character, reset dialogue repetitions
+            dialogueRepetitions = {};
+        }
+        currentCharacter = characterName;
+    }
     
     // Track dialogue repetitions for non-intro/non-accuse scenes
     if (!currentScene.startsWith('accuse_') && currentScene !== 'intro' && currentScene !== 'win') {
