@@ -2469,7 +2469,7 @@ function showAchievementNotification(message) {
         position: fixed;
         top: 80px;
         left: 20px;
-        background: linear-gradient(135deg, #ffd700, #ffed4e);
+        background: #ffd700;
         color: #000;
         padding: 15px 20px;
         border-radius: 10px;
@@ -3134,47 +3134,47 @@ function setupBrowser() {
                 <p style="text-align: center; color: #666; margin-bottom: 30px;">Browse available websites to gather evidence</p>
                 
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
-                    <div class="website-widget" onclick="loadBrowserPage('financial-records.com')" style="cursor: pointer; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div class="website-widget" onclick="loadBrowserPage('financial-records.com')" style="cursor: pointer; background: #667eea; padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
                         <h3 style="margin: 0 0 10px 0; color: white;">💰 Financial Records</h3>
                         <p style="margin: 0; font-size: 14px; opacity: 0.9;">Estate financial data and suspicious transactions</p>
                     </div>
                     
-                    <div class="website-widget" onclick="loadBrowserPage('midnight-game.com')" style="cursor: pointer; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div class="website-widget" onclick="loadBrowserPage('midnight-game.com')" style="cursor: pointer; background: #f093fb; padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
                         <h3 style="margin: 0 0 10px 0; color: white;">🎮 Midnight Game</h3>
                         <p style="margin: 0; font-size: 14px; opacity: 0.9;">Rayane's murder mystery game and commit history</p>
                     </div>
                     
-                    <div class="website-widget" onclick="loadBrowserPage('library-catalog.com')" style="cursor: pointer; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div class="website-widget" onclick="loadBrowserPage('library-catalog.com')" style="cursor: pointer; background: #4facfe; padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
                         <h3 style="margin: 0 0 10px 0; color: white;">📚 Library Catalog</h3>
                         <p style="margin: 0; font-size: 14px; opacity: 0.9;">Book checkout records and overdue items</p>
                     </div>
                     
-                    <div class="website-widget" onclick="loadBrowserPage('weather-archive.com')" style="cursor: pointer; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div class="website-widget" onclick="loadBrowserPage('weather-archive.com')" style="cursor: pointer; background: #43e97b; padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
                         <h3 style="margin: 0 0 10px 0; color: white;">🌤️ Weather Archive</h3>
                         <p style="margin: 0; font-size: 14px; opacity: 0.9;">Meteorological data and weather reports</p>
                     </div>
                     
-                    <div class="website-widget" onclick="loadBrowserPage('news-daily.com')" style="cursor: pointer; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div class="website-widget" onclick="loadBrowserPage('news-daily.com')" style="cursor: pointer; background: #fa709a; padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
                         <h3 style="margin: 0 0 10px 0; color: white;">📰 News Daily</h3>
                         <p style="margin: 0; font-size: 14px; opacity: 0.9;">Local news articles and investigations</p>
                     </div>
                     
-                    <div class="website-widget" onclick="loadBrowserPage('security-footage.com')" style="cursor: pointer; background: linear-gradient(135deg, #ff6b6b 0%, #c92a2a 100%); padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div class="website-widget" onclick="loadBrowserPage('security-footage.com')" style="cursor: pointer; background: #ff6b6b; padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
                         <h3 style="margin: 0 0 10px 0; color: white;">🎥 Security Footage</h3>
                         <p style="margin: 0; font-size: 14px; opacity: 0.9;">Camera archive and access logs</p>
                     </div>
                     
-                    <div class="website-widget" onclick="loadBrowserPage('social-media.com')" style="cursor: pointer; background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div class="website-widget" onclick="loadBrowserPage('social-media.com')" style="cursor: pointer; background: #a8edea; padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
                         <h3 style="margin: 0 0 10px 0; color: white;">📱 Social Media</h3>
                         <p style="margin: 0; font-size: 14px; opacity: 0.9;">Posts and activity from suspects</p>
                     </div>
                     
-                    <div class="website-widget" onclick="loadBrowserPage('phone-records.com')" style="cursor: pointer; background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div class="website-widget" onclick="loadBrowserPage('phone-records.com')" style="cursor: pointer; background: #6a11cb; padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
                         <h3 style="margin: 0 0 10px 0; color: white;">📞 Phone Records</h3>
                         <p style="margin: 0; font-size: 14px; opacity: 0.9;">Call logs and text messages</p>
                     </div>
                     
-                    <div class="website-widget" onclick="loadBrowserPage('antique-registry.com')" style="cursor: pointer; background: linear-gradient(135deg, #d4a373 0%, #8b6f47 100%); padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div class="website-widget" onclick="loadBrowserPage('antique-registry.com')" style="cursor: pointer; background: #d4a373; padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
                         <h3 style="margin: 0 0 10px 0; color: white;">🏺 Antique Registry</h3>
                         <p style="margin: 0; font-size: 14px; opacity: 0.9;">Appraisals and insurance valuations</p>
                     </div>
