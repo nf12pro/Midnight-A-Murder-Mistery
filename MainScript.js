@@ -1467,9 +1467,13 @@ function displayScene() {
             welcomeDiv.appendChild(welcomeImg);
             document.body.appendChild(welcomeDiv);
         }
+        if (leoPicDiv) {
+            document.body.removeChild(leoPicDiv);
+            leoPicDiv = null;
+        }
         textToType = '\n\nYour aunt was recently found murdered.\nYou are one of the best detectives, you have been handed the case.\n\nWho do you want to interrogate?\n\n';
         showAccuseButton();
-    }if (currentScene === 'leo_pictures') {
+    } else if (currentScene === 'leo_pictures') {
         if (!leoPicDiv) {
             leoPicDiv = document.createElement('div');
             leoPicDiv.style.position = 'fixed';
@@ -1492,6 +1496,10 @@ function displayScene() {
             setTimeout(() => {
                 leoPicDiv.style.opacity = '1';
             }, 10);
+        }
+        if (welcomeDiv) {
+            document.body.removeChild(welcomeDiv);
+            welcomeDiv = null;
         }
         hideAccuseButton();
     } else {
