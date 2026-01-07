@@ -2428,26 +2428,26 @@ function unlockAchievement(type, characterName = null) {
     if (type === 'notepad' && !achievements.openedNotepad) {
         achievements.openedNotepad = true;
         unlocked = true;
-        message = '<img src="assets/emoji/trophy.png" style="width:20px;height:20px;vertical-align:middle;margin-right:5px;">Achievement Unlocked: Note Taker!';
+        message = 'Achievement Unlocked: Note Taker!';
     } else if (type === 'browser' && !achievements.openedBrowser) {
         achievements.openedBrowser = true;
         unlocked = true;
-        message = '<img src="assets/emoji/trophy.png" style="width:20px;height:20px;vertical-align:middle;margin-right:5px;">Achievement Unlocked: Cyber Sleuth!';
+        message = 'Achievement Unlocked: Cyber Sleuth!';
     } else if (type === 'progressBar' && !achievements.completedProgressBar) {
         achievements.completedProgressBar = true;
         unlocked = true;
-        message = '<img src="assets/emoji/trophy.png" style="width:20px;height:20px;vertical-align:middle;margin-right:5px;">Achievement Unlocked: Social Butterfly!';
+        message = 'Achievement Unlocked: Social Butterfly!';
     } else if (type === 'accuseCharacter' && characterName) {
         if (!achievements.accused[characterName]) {
             achievements.accused[characterName] = true;
             unlocked = true;
-            message = `<img src="assets/emoji/trophy.png" style="width:20px;height:20px;vertical-align:middle;margin-right:5px;">Achievement Unlocked: Accused ${characterName}!`;
+            message = `Achievement Unlocked: Accused ${characterName}!`;
             
             // Check if all characters have been accused
             if (Object.keys(achievements.accused).length === 30 && !achievements.accusedAllCharacters) {
                 achievements.accusedAllCharacters = true;
                 setTimeout(() => {
-                    showAchievementNotification('<img src="assets/emoji/trophy.png" style="width:20px;height:20px;vertical-align:middle;margin-right:5px;">Achievement Unlocked: Trial and Error!');
+                    showAchievementNotification('Achievement Unlocked: Trial and Error!');
                 }, 2000);
             }
         }
