@@ -2011,7 +2011,7 @@ function renderSaveSlots() {
                 const questioned = (save.visitedScenes || []).filter(scene => characterScenes.has(scene));
                 const progress = questioned.length;
                 const achievements = save.achievementCount || 0;
-                btn.innerHTML = `<div class="slot-name"><img src="assets/emoji/notepad.png" style="width:16px;height:16px;vertical-align:middle;margin-right:5px;">Slot ${i}</div><div class="slot-info">${date.toLocaleDateString()} ${date.toLocaleTimeString()}</div><div class="slot-info">👥 ${progress}/${CHARACTER_NAMES.length} characters • <img src="assets/emoji/trophy.png" style="width:14px;height:14px;vertical-align:middle;margin-right:2px;">${achievements}/34 achievements</div>`;
+                btn.innerHTML = `<div class="slot-name"><img src="assets/emoji/floppy_disk.png" style="width:16px;height:16px;vertical-align:middle;margin-right:5px;">Slot ${i}</div><div class="slot-info">${date.toLocaleDateString()} ${date.toLocaleTimeString()}</div><div class="slot-info">👥 ${progress}/${CHARACTER_NAMES.length} characters • <img src="assets/emoji/trophy.png" style="width:14px;height:14px;vertical-align:middle;margin-right:2px;">${achievements}/34 achievements</div>`;
                 
                 // Delete button
                 const deleteBtn = document.createElement('button');
@@ -2031,11 +2031,11 @@ function renderSaveSlots() {
                 });
                 slotContainer.appendChild(deleteBtn);
             } catch (e) {
-                btn.innerHTML = `<div class="slot-name">📭 Slot ${i}</div><div class="slot-info">Empty</div>`;
+                btn.innerHTML = `<div class="slot-name"><img src="assets/emoji/mail_box.png" style="width:16px;height:16px;vertical-align:middle;margin-right:5px;">Slot ${i}</div><div class="slot-info">Empty</div>`;
                 btn.classList.add('empty');
             }
         } else {
-            btn.innerHTML = `<div class="slot-name">📭 Slot ${i}</div><div class="slot-info">Empty</div>`;
+            btn.innerHTML = `<div class="slot-name"><img src="assets/emoji/mail_box.png" style="width:16px;height:16px;vertical-align:middle;margin-right:5px;">Slot ${i}</div><div class="slot-info">Empty</div>`;
             btn.classList.add('empty');
         }
         
@@ -2068,18 +2068,18 @@ function renderLoadSlots() {
             const questioned = (save.visitedScenes || []).filter(scene => characterScenes.has(scene));
             const progress = questioned.length;
             const achievements = save.achievementCount || 0;
-            autoBtn.innerHTML = `<div class="slot-name">⚡ Auto-Save</div><div class="slot-info">👥 ${progress}/${CHARACTER_NAMES.length} characters • <img src="assets/emoji/trophy.png" style="width:14px;height:14px;vertical-align:middle;margin-right:2px;">${achievements}/34 achievements</div>`;
+            autoBtn.innerHTML = `<div class="slot-name"><img src="assets/emoji/auto_save.png" style="width:16px;height:16px;vertical-align:middle;margin-right:5px;">Auto-Save</div><div class="slot-info"><img src="assets/emoji/people.png" style="width:14px;height:14px;vertical-align:middle;margin-right:2px;">${progress}/${CHARACTER_NAMES.length} characters • <img src="assets/emoji/trophy.png" style="width:14px;height:14px;vertical-align:middle;margin-right:2px;">${achievements}/34 achievements</div>`;
             autoBtn.addEventListener('click', function() {
                 playClickSound();
                 loadFromSlot(null);
             });
         } catch (e) {
-            autoBtn.innerHTML = `<div class="slot-name">⚡ Auto-Save</div><div class="slot-info">No auto-save</div>`;
+            autoBtn.innerHTML = `<div class="slot-name"><img src="assets/emoji/auto_save.png" style="width:16px;height:16px;vertical-align:middle;margin-right:5px;">Auto-Save</div><div class="slot-info">No auto-save</div>`;
             autoBtn.classList.add('empty');
             autoBtn.disabled = true;
         }
     } else {
-        autoBtn.innerHTML = `<div class="slot-name">⚡ Auto-Save</div><div class="slot-info">No auto-save</div>`;
+        autoBtn.innerHTML = `<div class="slot-name"><img src="assets/emoji/auto_save.png" style="width:16px;height:16px;vertical-align:middle;margin-right:5px;">Auto-Save</div><div class="slot-info">No auto-save</div>`;
         autoBtn.classList.add('empty');
         autoBtn.disabled = true;
     }
@@ -2105,7 +2105,7 @@ function renderLoadSlots() {
                 const questioned = (save.visitedScenes || []).filter(scene => characterScenes.has(scene));
                 const progress = questioned.length;
                 const achievements = save.achievementCount || 0;
-                btn.innerHTML = `<div class="slot-name"><img src="assets/emoji/notepad.png" style="width:16px;height:16px;vertical-align:middle;margin-right:5px;">Slot ${i}</div><div class="slot-info">${date.toLocaleDateString()} ${date.toLocaleTimeString()}</div><div class="slot-info">👥 ${progress}/${CHARACTER_NAMES.length} characters • <img src="assets/emoji/trophy.png" style="width:14px;height:14px;vertical-align:middle;margin-right:2px;">${achievements}/34 achievements</div>`;
+                btn.innerHTML = `<div class="slot-name"><img src="assets/emoji/floppy_disk.png" style="width:16px;height:16px;vertical-align:middle;margin-right:5px;">Slot ${i}</div><div class="slot-info">${date.toLocaleDateString()} ${date.toLocaleTimeString()}</div><div class="slot-info">👥 ${progress}/${CHARACTER_NAMES.length} characters • <img src="assets/emoji/trophy.png" style="width:14px;height:14px;vertical-align:middle;margin-right:2px;">${achievements}/34 achievements</div>`;
                 const slotNum = i;
                 btn.addEventListener('click', function() {
                     playClickSound();
@@ -2116,7 +2116,7 @@ function renderLoadSlots() {
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'slot-delete-btn';
                 deleteBtn.type = 'button';
-                deleteBtn.innerHTML = '🗑️';
+                deleteBtn.innerHTML = '<img src="assets/emoji/trash_can.png" style="width:20px;height:20px;">';
                 deleteBtn.title = 'Delete this save';
                 deleteBtn.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -2129,12 +2129,12 @@ function renderLoadSlots() {
                 });
                 slotContainer.appendChild(deleteBtn);
             } catch (e) {
-                btn.innerHTML = `<div class="slot-name">📭 Slot ${i}</div><div class="slot-info">Empty</div>`;
+                btn.innerHTML = `<div class="slot-name"><img src="assets/emoji/mail_box.png" style="width:16px;height:16px;vertical-align:middle;margin-right:5px;">Slot ${i}</div><div class="slot-info">Empty</div>`;
                 btn.classList.add('empty');
                 btn.disabled = true;
             }
         } else {
-            btn.innerHTML = `<div class="slot-name">📭 Slot ${i}</div><div class="slot-info">Empty</div>`;
+            btn.innerHTML = `<div class="slot-name"><img src="assets/emoji/mail_box.png" style="width:16px;height:16px;vertical-align:middle;margin-right:5px;">Slot ${i}</div><div class="slot-info">Empty</div>`;
             btn.classList.add('empty');
             btn.disabled = true;
         }
@@ -2230,7 +2230,7 @@ function setupSettings() {
             resetGame();
             resetGameBtn.textContent = '✓ Game Reset!';
             setTimeout(() => {
-                resetGameBtn.textContent = '🔄 Reset Game';
+                resetGameBtn.innerHTML = '<img src="assets/emoji/restart.png" style="width:16px;height:16px;vertical-align:middle;margin-right:5px;">Reset Game';
                 settingsPanel.classList.remove('open');
             }, 1000);
         }
@@ -2396,7 +2396,7 @@ function renderAchievements() {
         const unlockedClass = unlocked ? 'unlocked' : '';
         html += `
             <div class="achievement ${unlockedClass}">
-                <div class="achievement-icon">🔍</div>
+                <div class="achievement-icon"><img src="assets/emoji/magnifying_glass.png" style="width:30px;height:30px;"></div>
                 <div class="achievement-info">
                     <div class="achievement-name">Accused ${name}</div>
                     <div class="achievement-desc ${unlocked ? '' : 'achievement-locked'}">
@@ -2709,7 +2709,7 @@ function setupBrowser() {
                 <p style="font-style: italic; color: #666;">By Rayane - Game Developer</p>
                 
                 <div class="game-frame">
-                    <h3>🎮 Game Description</h3>
+                    <h3><img src="assets/emoji/gaming.png" style="width:20px;height:20px;vertical-align:middle;margin-right:5px;">Game Description</h3>
                     <p>Welcome to MIDNIGHT, a text-based murder mystery where YOU are the detective!</p>
                     <p>Your aunt has been murdered, and you must interrogate 30 suspects to find the killer.</p>
                     <p><strong>Features:</strong></p>
@@ -2755,7 +2755,7 @@ function setupBrowser() {
         
         'library-catalog.com': `
             <div class="web-page">
-                <h1>📚 Public Library - Book Catalog</h1>
+                <h1><img src="assets/emoji/books.png" style="width:28px;height:28px;vertical-align:middle;margin-right:8px;">Public Library - Book Catalog</h1>
                 <p>Managed by Gloria (Head Librarian)</p>
                 
                 <h2>Overdue Books Report</h2>
@@ -2822,7 +2822,7 @@ function setupBrowser() {
         
         'weather-archive.com': `
             <div class="web-page">
-                <h1>🌤️ Weather Archive</h1>
+                <h1><img src="assets/emoji/weather.png" style="width:28px;height:28px;vertical-align:middle;margin-right:8px;">Weather Archive</h1>
                 <p>Meteorological Data by Gregory</p>
                 
                 <h2>Weather Report - Day of Murder</h2>
@@ -2873,7 +2873,7 @@ function setupBrowser() {
         
         'news-daily.com': `
             <div class="web-page">
-                <h1>📰 The Daily Chronicle</h1>
+                <h1><img src="assets/emoji/newspaper.png" style="width:28px;height:28px;vertical-align:middle;margin-right:8px;">The Daily Chronicle</h1>
                 <p style="font-style: italic;">Editor: Yvonne (Investigative Journalist)</p>
                 
                 <h2>BREAKING: Local Estate Owner Found Dead</h2>
@@ -2974,32 +2974,32 @@ function setupBrowser() {
                 <div style="background: #f8f9fa; padding: 15px; margin: 15px 0; border-radius: 8px; border-left: 4px solid #667eea;">
                     <strong>Leo (Motivational Speaker)</strong> - 8:30 AM<br>
                     "Rise and shine, friends! Today is going to be AMAZING! ☀️ Stay positive! #MondayMotivation"<br>
-                    <span style="color: #666; font-size: 12px;">📍 Coffee Shop Downtown</span>
+                    <span style="color: #666; font-size: 12px;"><img src="assets/emoji/location.png" style="width:12px;height:12px;vertical-align:middle;margin-right:2px;">Coffee Shop Downtown</span>
                 </div>
                 
                 <div style="background: #f8f9fa; padding: 15px; margin: 15px 0; border-radius: 8px; border-left: 4px solid #43e97b;">
                     <strong>Heather (Fitness Trainer)</strong> - 10:15 AM<br>
                     "Morning workout complete! 500 lunges ✅ Never skip leg day! 💪 #FitnessLife"<br>
-                    <span style="color: #666; font-size: 12px;">📍 Downtown Gym</span>
+                    <span style="color: #666; font-size: 12px;"><img src="assets/emoji/location.png" style="width:12px;height:12px;vertical-align:middle;margin-right:2px;">Downtown Gym</span>
                 </div>
                 
                 <div style="background: #ffe6e6; padding: 15px; margin: 15px 0; border-radius: 8px; border-left: 4px solid #d32f2f;">
                     <strong>Euan (Accountant)</strong> - 12:00 PM<br>
                     "Sometimes numbers tell stories people don't want to hear... 📊"<br>
-                    <span style="color: #666; font-size: 12px;">📍 Location Hidden</span><br>
+                    <span style="color: #666; font-size: 12px;"><img src="assets/emoji/location.png" style="width:12px;height:12px;vertical-align:middle;margin-right:2px;">Location Hidden</span><br>
                     <em style="color: #d32f2f; font-size: 12px;">⚠️ Post deleted at 2:30 PM</em>
                 </div>
                 
                 <div style="background: #f8f9fa; padding: 15px; margin: 15px 0; border-radius: 8px; border-left: 4px solid #f5576c;">
                     <strong>Reem (Courier)</strong> - 3:30 PM<br>
                     "34-stops-done!-Best-delivery-day-ever!-No-traffic-perfect-weather! 🚚✨"<br>
-                    <span style="color: #666; font-size: 12px;">📍 Delivery Route #7</span>
+                    <span style="color: #666; font-size: 12px;"><img src="assets/emoji/location.png" style="width:12px;height:12px;vertical-align:middle;margin-right:2px;">Delivery Route #7</span>
                 </div>
                 
                 <div style="background: #f8f9fa; padding: 15px; margin: 15px 0; border-radius: 8px; border-left: 4px solid #764ba2;">
                     <strong>Dev (Santa Impersonator)</strong> - 6:00 PM<br>
                     "HO HO HO! Charity drive was a success today! Thanks to all donors! 🎅❤️ #SpreadJoy"<br>
-                    <span style="color: #666; font-size: 12px;">📍 Community Center</span>
+                    <span style="color: #666; font-size: 12px;"><img src="assets/emoji/location.png" style="width:12px;height:12px;vertical-align:middle;margin-right:2px;">Community Center</span>
                 </div>
                 
                 <h2>Suspicious Activity Report</h2>
@@ -3012,7 +3012,7 @@ function setupBrowser() {
         
         'phone-records.com': `
             <div class="web-page">
-                <h1>📞 Phone Records Database</h1>
+                <h1><img src="assets/emoji/social_media.png" style="width:28px;height:28px;vertical-align:middle;margin-right:8px;">Phone Records Database</h1>
                 <p style="color: #d32f2f; font-weight: bold;">⚠️ CONFIDENTIAL - AUTHORIZED ACCESS ONLY</p>
                 
                 <h2>Call Log - Day of Murder</h2>
@@ -3082,7 +3082,7 @@ function setupBrowser() {
         
         'antique-registry.com': `
             <div class="web-page">
-                <h1>🏺 International Antique Registry</h1>
+                <h1><img src="assets/emoji/star.png" style="width:28px;height:28px;vertical-align:middle;margin-right:8px;">International Antique Registry</h1>
                 <p>Managed by Vincent (Antique Dealer)</p>
                 
                 <h2>Recent Appraisals - Your Aunt's Estate</h2>
@@ -3140,22 +3140,22 @@ function setupBrowser() {
                     </div>
                     
                     <div class="website-widget" onclick="loadBrowserPage('midnight-game.com')" style="cursor: pointer; background: #f093fb; padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                        <h3 style="margin: 0 0 10px 0; color: white;">🎮 Midnight Game</h3>
+                        <h3 style="margin: 0 0 10px 0; color: white;"><img src="assets/emoji/gaming.png" style="width:20px;height:20px;vertical-align:middle;margin-right:5px;">Midnight Game</h3>
                         <p style="margin: 0; font-size: 14px; opacity: 0.9;">Rayane's murder mystery game and commit history</p>
                     </div>
                     
                     <div class="website-widget" onclick="loadBrowserPage('library-catalog.com')" style="cursor: pointer; background: #4facfe; padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                        <h3 style="margin: 0 0 10px 0; color: white;">📚 Library Catalog</h3>
+                        <h3 style="margin: 0 0 10px 0; color: white;"><img src="assets/emoji/books.png" style="width:20px;height:20px;vertical-align:middle;margin-right:5px;">Library Catalog</h3>
                         <p style="margin: 0; font-size: 14px; opacity: 0.9;">Book checkout records and overdue items</p>
                     </div>
                     
                     <div class="website-widget" onclick="loadBrowserPage('weather-archive.com')" style="cursor: pointer; background: #43e97b; padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                        <h3 style="margin: 0 0 10px 0; color: white;">🌤️ Weather Archive</h3>
+                        <h3 style="margin: 0 0 10px 0; color: white;"><img src="assets/emoji/weather.png" style="width:20px;height:20px;vertical-align:middle;margin-right:5px;">Weather Archive</h3>
                         <p style="margin: 0; font-size: 14px; opacity: 0.9;">Meteorological data and weather reports</p>
                     </div>
                     
                     <div class="website-widget" onclick="loadBrowserPage('news-daily.com')" style="cursor: pointer; background: #fa709a; padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                        <h3 style="margin: 0 0 10px 0; color: white;">📰 News Daily</h3>
+                        <h3 style="margin: 0 0 10px 0; color: white;"><img src="assets/emoji/newspaper.png" style="width:20px;height:20px;vertical-align:middle;margin-right:5px;">News Daily</h3>
                         <p style="margin: 0; font-size: 14px; opacity: 0.9;">Local news articles and investigations</p>
                     </div>
                     
@@ -3170,18 +3170,18 @@ function setupBrowser() {
                     </div>
                     
                     <div class="website-widget" onclick="loadBrowserPage('phone-records.com')" style="cursor: pointer; background: #6a11cb; padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                        <h3 style="margin: 0 0 10px 0; color: white;">📞 Phone Records</h3>
+                        <h3 style="margin: 0 0 10px 0; color: white;"><img src="assets/emoji/social_media.png" style="width:20px;height:20px;vertical-align:middle;margin-right:5px;">Phone Records</h3>
                         <p style="margin: 0; font-size: 14px; opacity: 0.9;">Call logs and text messages</p>
                     </div>
                     
                     <div class="website-widget" onclick="loadBrowserPage('antique-registry.com')" style="cursor: pointer; background: #d4a373; padding: 20px; border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                        <h3 style="margin: 0 0 10px 0; color: white;">🏺 Antique Registry</h3>
+                        <h3 style="margin: 0 0 10px 0; color: white;"><img src="assets/emoji/star.png" style="width:20px;height:20px;vertical-align:middle;margin-right:5px;">Antique Registry</h3>
                         <p style="margin: 0; font-size: 14px; opacity: 0.9;">Appraisals and insurance valuations</p>
                     </div>
                 </div>
                 
                 <div style="margin-top: 30px; padding: 15px; background: #f0f0f0; border-radius: 8px; text-align: center;">
-                    <p style="margin: 0; color: #666; font-size: 14px;">💡 Tip: Click any widget to visit that website</p>
+                    <p style="margin: 0; color: #666; font-size: 14px;">Tip: Click any widget to visit that website</p>
                 </div>
             </div>
         `;
