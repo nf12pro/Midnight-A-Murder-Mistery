@@ -577,6 +577,7 @@ const scenes = {
     rachel_dogs: {
         text: 'Rachel explains your aunt never had dogs, but she was hired anyway "just in case." This has been her job for 5 years. She mentions she was walking by the house around 2:00 PM and saw the pool cleaner leaving early, which she found odd. She didn\'t see the mailman at all that day, which was unusual since he\'s always so punctual.\n\n',
         options: [
+            { text: 'Back to Rachel', nextScene: 'rachel' },
             { text: 'Back to interrogation room', nextScene: 'intro' }
         ]
     },
@@ -985,7 +986,7 @@ const scenes = {
         ]
     },
     leo_jolly: {
-        text: 'Leo explains that despite working hard, he finds joy in every moment and tries to spread that positivity to others. He was actually at home on the day of the murder, preparing a nice dinner for some friends. He mentions it was at the same time Dev was out caroling the neighborhood with Christmas spirit.\n\n',
+        text: 'Leo explains that despite working hard, he finds joy in every moment and tries to spread that positivity to others. He was actually at home on the day of the murder, preparing a nice dinner for some friends. He mentions it was at the same time Dev was out giving some "presents" the neighborhood with Christmas spirit.\n\n',
         options: [
             { text: 'Ask about his work schedule', nextScene: 'leo_schedule' },
             { text: 'Ask about his 11 year old pictures', nextScene: 'leo_pictures' },
@@ -1915,9 +1916,12 @@ function renderSaveSlots() {
             try {
                 const save = JSON.parse(saveData);
                 const date = new Date(save.saveDate);
-                const progress = save.visitedScenes ? save.visitedScenes.length : 0;
+                // Calculate progress same as progress bar
+                const characterScenes = new Set(['marcus', 'tongyu', 'derek', 'kacper', 'patricia', 'simon', 'jane', 'rachel', 'vincent', 'herby', 'gloria', 'boris', 'natasha', 'felix', 'euan', 'bethany', 'leonard', 'yvonne', 'malcolm', 'sophia', 'gregory', 'heather', 'theodore', 'millicent', 'leo', 'dev', 'ren_ran', 'rayane', 'alex', 'reem']);
+                const questioned = (save.visitedScenes || []).filter(scene => characterScenes.has(scene));
+                const progress = questioned.length;
                 const achievements = save.achievementCount || 0;
-                btn.innerHTML = `<div class="slot-name">💾 Slot ${i}</div><div class="slot-info">${date.toLocaleDateString()} ${date.toLocaleTimeString()}</div><div class="slot-info">👥 ${progress}/30 characters • 🏆 ${achievements}/34 achievements</div>`;
+                btn.innerHTML = `<div class="slot-name">💾 Slot ${i}</div><div class="slot-info">${date.toLocaleDateString()} ${date.toLocaleTimeString()}</div><div class="slot-info">👥 ${progress}/${CHARACTER_NAMES.length} characters • 🏆 ${achievements}/34 achievements</div>`;
                 
                 // Delete button
                 const deleteBtn = document.createElement('button');
@@ -1969,9 +1973,12 @@ function renderLoadSlots() {
     if (autoSaveData) {
         try {
             const save = JSON.parse(autoSaveData);
-            const progress = save.visitedScenes ? save.visitedScenes.length : 0;
+            // Calculate progress same as progress bar
+            const characterScenes = new Set(['marcus', 'tongyu', 'derek', 'kacper', 'patricia', 'simon', 'jane', 'rachel', 'vincent', 'herby', 'gloria', 'boris', 'natasha', 'felix', 'euan', 'bethany', 'leonard', 'yvonne', 'malcolm', 'sophia', 'gregory', 'heather', 'theodore', 'millicent', 'leo', 'dev', 'ren_ran', 'rayane', 'alex', 'reem']);
+            const questioned = (save.visitedScenes || []).filter(scene => characterScenes.has(scene));
+            const progress = questioned.length;
             const achievements = save.achievementCount || 0;
-            autoBtn.innerHTML = `<div class="slot-name">⚡ Auto-Save</div><div class="slot-info">👥 ${progress}/30 characters • 🏆 ${achievements}/34 achievements</div>`;
+            autoBtn.innerHTML = `<div class="slot-name">⚡ Auto-Save</div><div class="slot-info">👥 ${progress}/${CHARACTER_NAMES.length} characters • 🏆 ${achievements}/34 achievements</div>`;
             autoBtn.addEventListener('click', function() {
                 playClickSound();
                 loadFromSlot(null);
@@ -2003,9 +2010,12 @@ function renderLoadSlots() {
             try {
                 const save = JSON.parse(saveData);
                 const date = new Date(save.saveDate);
-                const progress = save.visitedScenes ? save.visitedScenes.length : 0;
+                // Calculate progress same as progress bar
+                const characterScenes = new Set(['marcus', 'tongyu', 'derek', 'kacper', 'patricia', 'simon', 'jane', 'rachel', 'vincent', 'herby', 'gloria', 'boris', 'natasha', 'felix', 'euan', 'bethany', 'leonard', 'yvonne', 'malcolm', 'sophia', 'gregory', 'heather', 'theodore', 'millicent', 'leo', 'dev', 'ren_ran', 'rayane', 'alex', 'reem']);
+                const questioned = (save.visitedScenes || []).filter(scene => characterScenes.has(scene));
+                const progress = questioned.length;
                 const achievements = save.achievementCount || 0;
-                btn.innerHTML = `<div class="slot-name">💾 Slot ${i}</div><div class="slot-info">${date.toLocaleDateString()} ${date.toLocaleTimeString()}</div><div class="slot-info">👥 ${progress}/30 characters • 🏆 ${achievements}/34 achievements</div>`;
+                btn.innerHTML = `<div class="slot-name">💾 Slot ${i}</div><div class="slot-info">${date.toLocaleDateString()} ${date.toLocaleTimeString()}</div><div class="slot-info">👥 ${progress}/${CHARACTER_NAMES.length} characters • 🏆 ${achievements}/34 achievements</div>`;
                 const slotNum = i;
                 btn.addEventListener('click', function() {
                     playClickSound();
